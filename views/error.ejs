@@ -1,0 +1,15 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="alert alert-danger shadow-sm" role="alert">
+        <h4 class="alert-heading">
+          <%= message || "Something went wrong!" %>
+        </h4>
+        <hr>
+        <p>Status Code: <strong><%= status || 500 %></strong></p>
+      </div>
+    </div>
+  </div>
+</div>

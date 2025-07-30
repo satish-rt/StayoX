@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+  <div class="container-fluid">
+    <!-- Logo -->
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-regular fa-compass"></i>
+    </a>
+
+    <!-- Toggle Button for Mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible Navbar Content -->
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      <!-- Left Side Navigation -->
+      <div class="navbar-nav me-auto">
+        <a class="nav-link" href="/listings">Explore</a>
+      </div>
+
+      <!-- Centered Search Bar -->
+      <div class="d-none d-md-block mx-auto">
+        <div class="search-bar-box rounded-pill d-flex align-items-center px-3 py-2 shadow-sm">
+          <i class="fa-solid fa-house me-2"></i>
+          <span>Homes in map area</span>
+          <div class="vr mx-2"></div>
+          <span>31 Jul – 1 Aug</span>
+          <div class="vr mx-2"></div>
+          <span>2 guests</span>
+          <button class="btn btn-danger rounded-circle ms-3 d-flex align-items-center justify-content-center btn-search-icon">
+            <i class="fas fa-search text-white"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Side Navigation -->
+      <div class="navbar-nav ms-auto align-items-center">
+        <a class="nav-link" href="/listings/new">List a Stay</a>
+        <% if (!currUser) { %>
+          <a class="nav-link" href="/signup"><b>Signup</b></a>
+          <a class="nav-link" href="/login"><b>Login</b></a>
+        <% } %>
+        <% if (currUser) { %>
+          <a class="nav-link" href="/logout">Logout</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>

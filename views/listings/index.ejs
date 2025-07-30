@@ -1,0 +1,98 @@
+<% layout("/layouts/boilerplate") %>
+
+<!-- Category Bar Section -->
+<div class="d-flex justify-content-between align-items-center flex-wrap px-3 py-2 border-bottom bg-white">
+  <div class="d-flex flex-wrap gap-4 align-items-center category-bar">
+    <!-- Category Items -->
+    <div class="category-item text-center">
+      <i class="fas fa-seedling"></i>
+      <span>Green Getaways</span>
+    </div>
+    <div class="category-item text-center">
+      <i class="fas fa-person-shelter"></i>
+      <span>Private Stays</span>
+    </div>
+    <div class="category-item text-center">
+      <i class="fas fa-binoculars"></i>
+      <span>Scenic Spots</span>
+    </div>
+    <div class="category-item text-center">
+      <i class="fas fa-building-columns"></i>
+      <span>City Classics</span>
+    </div>
+    <div class="category-item text-center">
+      <i class="fas fa-water"></i>
+      <span>Wave Riders</span>
+    </div>
+    <div class="category-item text-center">
+      <i class="fas fa-water-ladder"></i>
+      <span>Poolside Luxe</span>
+    </div>
+    <div class="category-item text-center">
+      <i class="fas fa-tree"></i>
+      <span>Cabin Hideouts</span>
+    </div>
+    <div class="category-item text-center">
+      <i class="fas fa-mountain"></i>
+      <span>Hill Retreats</span>
+    </div>
+    <div class="category-item text-center">
+      <i class="fas fa-chess-rook"></i>
+      <span>Heritage Homes</span>
+    </div>
+    <div class="category-item text-center">
+      <i class="fas fa-ship"></i>
+      <span>Water Villas</span>
+    </div>
+    
+    <!-- Toggle Switch -->
+    <div class="form-check form-switch tax-toggle d-flex align-items-center justify-content-center mt-2">
+      <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+      <label class="form-check-label ms-2" for="switchCheckDefault">Display total after tax</label>
+    </div>
+  </div>
+</div>
+
+<!-- Listings Section -->
+<div class="container-fluid px-0 main-content">
+  <div class="row gx-4 gy-4">
+    <% allListing.forEach(listing => { %>
+      <div class="col-md-4">
+        <a href="/listings/<%= listing._id %>" class="listing-link">
+          <div class="card h-100">
+            <img 
+              src="<%= listing.image.url %>" 
+              class="card-img-top" 
+              alt="listing-image" 
+              style="height: 20rem; object-fit: cover;"
+            >
+            <div class="card-img-overlay"></div>
+            <div class="card-body">
+              <p class="card-text">
+                <b><%= listing.title %></b><br>
+                ₹ <%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %>
+                <span class="tax-info" style="display: none;"> (+18 GST)</span>
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<!-- Toggle Tax Script -->
+<script>
+  let taxSwitch = document.getElementById("switchCheckDefault");
+  taxSwitch.addEventListener("click", () => {
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for (let info of taxInfo) {
+      if (info.style.display !== "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
+      }
+    }
+  });
+</script>
+
