@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Review = require('./review.js');
+const Review = require("./review.js");
 const User = require("./user.js");
-const { fileLoader } = require('ejs');
 
 const listingSchema = new Schema({
   title: {
@@ -10,28 +9,64 @@ const listingSchema = new Schema({
     required: true,
   },
   description: String,
-    image: {
-   filename : String,
-   url : String,
+  image: {
+    url: String,
+    filename: String,
   },
   price: Number,
+  listingType: {
+    type: String,
+    enum: ["For Rent", "For Sale"],
+    default: "For Rent"
+  },
   location: String,
   country: String,
-  reviews : [
+  // Added coordinates for Maps integration
+  latitude: { type: Number },
+  longitude: { type: Number },
+  bedrooms: {
+    type: Number,
+    default: 1
+  },
+  beds: {
+    type: Number,
+    default: 1
+  },
+  bathrooms: {
+    type: Number,
+    default: 1
+  },
+  propertyType: {
+    type: String,
+    enum: ["Apartment", "House", "Villa", "Cabin", "Condo", "Other"],
+    default: "Apartment"
+  },
+  amenities: {
+    type: [String],
+    default: []
+  },
+  maxGuests: {
+    type: Number,
+    default: 2
+  },
+  squareFeet: {
+    type: Number
+  },
+  reviews: [
     {
-      type:Schema.Types.ObjectId,
-      ref:"Review",
+      type: Schema.Types.ObjectId,
+      ref: "Review",
     }
   ],
-  owner:{
-      type:Schema.Types.ObjectId,
-      ref:"User",
-    },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
-listingSchema.post('findOneAndDelete',async(listing)=>{
-  if(listing){
-    await Review.deleteMany({_id:{$in:listing.reviews}});
+listingSchema.post("findOneAndDelete", async (listing) => {
+  if (listing) {
+    await Review.deleteMany({ _id: { $in: listing.reviews } });
   }
 });
 

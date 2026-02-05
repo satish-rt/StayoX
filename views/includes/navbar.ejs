@@ -1,49 +1,550 @@
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-premium sticky-top">
+  <div class="container-fluid px-3 px-lg-5">
     <!-- Logo -->
-    <a class="navbar-brand" href="/listings">
-      <i class="fa-regular fa-compass"></i>
+    <a
+      class="navbar-brand navbar-brand-premium d-flex align-items-center fw-bold"
+      href="/listings"
+    >
+      <div class="logo-icon-premium me-3">
+        <i class="fas fa-home"></i>
+      </div>
+      <span class="brand-text">Stayo<span class="text-primary">X</span></span>
     </a>
 
-    <!-- Toggle Button for Mobile -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <!-- Mobile Actions -->
+    <div class="d-lg-none d-flex align-items-center gap-2">
+      <% if (!currUser) { %>
+      <a
+        href="/login"
+        class="btn btn-sm btn-outline-primary rounded-pill fw-600"
+      >
+        <i class="fas fa-sign-in-alt me-1"></i> Login
+      </a>
+      <% } else { %>
+      <a
+        href="/users/<%= currUser._id %>"
+        class="btn btn-sm btn-primary rounded-pill fw-600"
+      >
+        <i class="fas fa-user"></i>
+      </a>
+      <% } %>
+      <button
+        class="navbar-toggler border-0 navbar-toggler-premium"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
 
-    <!-- Collapsible Navbar Content -->
+    <!-- Collapsible Content -->
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <!-- Main Navigation -->
+      <ul class="navbar-nav mx-auto gap-3">
+        <li class="nav-item">
+          <a class="nav-link nav-item-premium" href="/listings">
+            <i class="fas fa-home nav-icon-premium"></i> <span>Home</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-item-premium" href="/listings">
+            <i class="fas fa-building nav-icon-premium"></i>
+            <span>Properties</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-item-premium" href="/about">
+            <i class="fas fa-info-circle nav-icon-premium"></i>
+            <span>About</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-item-premium" href="/contact">
+            <i class="fas fa-envelope nav-icon-premium"></i>
+            <span>Contact</span>
+          </a>
+        </li>
+      </ul>
 
-      <!-- Left Side Navigation -->
-      <div class="navbar-nav me-auto">
-        <a class="nav-link" href="/listings">Explore</a>
-      </div>
+      <!-- Right Side -->
+      <div class="navbar-nav ms-auto align-items-center gap-2">
+        <!-- Search Form -->
+        <form
+          action="/listings"
+          method="GET"
+          class="nav-search-form-premium d-none d-lg-flex"
+        >
+          <div class="input-group nav-search-group-premium">
+            <span class="input-group-text search-icon-premium border-0">
+              <i class="fas fa-search"></i>
+            </span>
+            <input
+              type="text"
+              name="search"
+              class="form-control search-input-premium border-0"
+              placeholder="Search properties..."
+              value="<%= typeof searchParams !== 'undefined' && searchParams.search ? searchParams.search : '' %>"
+            />
+          </div>
+        </form>
 
-      <!-- Centered Search Bar -->
-      <div class="d-none d-md-block mx-auto">
-        <div class="search-bar-box rounded-pill d-flex align-items-center px-3 py-2 shadow-sm">
-          <i class="fa-solid fa-house me-2"></i>
-          <span>Homes in map area</span>
-          <div class="vr mx-2"></div>
-          <span>31 Jul – 1 Aug</span>
-          <div class="vr mx-2"></div>
-          <span>2 guests</span>
-          <button class="btn btn-danger rounded-circle ms-3 d-flex align-items-center justify-content-center btn-search-icon">
-            <i class="fas fa-search text-white"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- Right Side Navigation -->
-      <div class="navbar-nav ms-auto align-items-center">
-        <a class="nav-link" href="/listings/new">List a Stay</a>
         <% if (!currUser) { %>
-          <a class="nav-link" href="/signup"><b>Signup</b></a>
-          <a class="nav-link" href="/login"><b>Login</b></a>
-        <% } %>
-        <% if (currUser) { %>
-          <a class="nav-link" href="/logout">Logout</a>
+        <a
+          class="btn btn-outline-primary btn-sm rounded-pill fw-600 ms-2"
+          href="/login"
+        >
+          <i class="fas fa-sign-in-alt me-2"></i> Login
+        </a>
+        <% } else { %>
+        <!-- Bookings Notification -->
+        <a href="/bookings" class="nav-icon-link" title="My Bookings">
+          <i class="fas fa-calendar-check"></i>
+        </a>
+
+        <!-- Profile Dropdown -->
+        <div class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle nav-profile-dropdown"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            title="<%= currUser.username %>"
+          >
+            <div class="nav-profile-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <span class="d-none d-md-inline-block nav-username"
+              ><%= currUser.username %></span
+            >
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-premium">
+            <li>
+              <a
+                class="dropdown-item dropdown-item-premium"
+                href="/users/<%= currUser._id %>"
+              >
+                <i class="fas fa-user-circle me-2 dropdown-icon"></i> My Profile
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item dropdown-item-premium" href="/bookings">
+                <i class="fas fa-calendar me-2 dropdown-icon"></i> My Bookings
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item dropdown-item-premium"
+                href="/listings/new"
+              >
+                <i class="fas fa-plus-circle me-2 dropdown-icon"></i> Add
+                Listing
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item dropdown-item-premium" href="/account">
+                <i class="fas fa-cog me-2 dropdown-icon"></i> Settings
+              </a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a
+                class="dropdown-item dropdown-item-premium text-danger"
+                href="/logout"
+              >
+                <i class="fas fa-sign-out-alt me-2 dropdown-icon"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Post Property Button -->
+        <a
+          class="btn btn-primary btn-premium rounded-pill px-4 fw-600 ms-2"
+          href="/listings/new"
+        >
+          <i class="fas fa-plus me-2"></i>
+          <span class="d-none d-lg-inline">Post</span>
+        </a>
         <% } %>
       </div>
     </div>
   </div>
 </nav>
+
+<style>
+  /* Premium Navbar Styling */
+  .navbar-premium {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+    border-bottom: 2px solid rgba(255, 90, 95, 0.1);
+    padding: 1rem 0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    height: auto;
+  }
+
+  .navbar-premium:hover {
+    box-shadow: 0 4px 16px rgba(255, 90, 95, 0.12);
+  }
+
+  /* Logo & Brand */
+  .navbar-brand-premium {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-brand-premium:hover {
+    transform: scale(1.05);
+  }
+
+  .brand-text {
+    background: linear-gradient(135deg, #1a1a1a, var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .logo-icon-premium {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+      135deg,
+      var(--primary-color),
+      var(--accent-color)
+    );
+    border-radius: 10px;
+    color: white;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-brand-premium:hover .logo-icon-premium {
+    transform: rotate(-10deg) scale(1.1);
+    box-shadow: 0 6px 16px rgba(255, 90, 95, 0.3);
+  }
+
+  /* Navigation Items */
+  .nav-item-premium {
+    color: #555 !important;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.2rem !important;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .nav-icon-premium {
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .nav-item-premium:hover {
+    color: var(--primary-color) !important;
+    background-color: rgba(255, 90, 95, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .nav-item-premium::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--primary-color),
+      var(--accent-color)
+    );
+    border-radius: 2px;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+  }
+
+  .nav-item-premium:hover::after {
+    width: 60%;
+  }
+
+  /* Login Link */
+  .nav-login-link {
+    border: 2px solid rgba(255, 90, 95, 0.2);
+    border-radius: 8px !important;
+  }
+
+  .nav-login-link:hover {
+    border-color: var(--primary-color);
+  }
+
+  /* Profile Link */
+  .nav-profile-link {
+    padding: 0.6rem 1.2rem !important;
+  }
+
+  .nav-profile-icon {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+  }
+
+  /* Profile Dropdown */
+  .nav-profile-dropdown {
+    display: flex !important;
+    align-items: center;
+    gap: 0.6rem;
+    color: #555 !important;
+    padding: 0.5rem 0.8rem !important;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-profile-dropdown:hover {
+    background-color: rgba(255, 90, 95, 0.08);
+    color: var(--primary-color) !important;
+  }
+
+  .nav-profile-avatar {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+      135deg,
+      var(--primary-color),
+      var(--accent-color)
+    );
+    border-radius: 50%;
+    color: white;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+
+  .nav-profile-dropdown:hover .nav-profile-avatar {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(255, 90, 95, 0.3);
+  }
+
+  .nav-username {
+    font-weight: 600;
+    color: #333;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Icon Link */
+  .nav-icon-link {
+    color: #555;
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+
+  .nav-icon-link:hover {
+    color: var(--primary-color);
+    background-color: rgba(255, 90, 95, 0.1);
+    transform: scale(1.1);
+  }
+
+  /* Premium Button */
+  .btn-premium {
+    background: linear-gradient(
+      135deg,
+      var(--primary-color),
+      var(--accent-color)
+    );
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 90, 95, 0.2);
+  }
+
+  .btn-premium:hover {
+    box-shadow: 0 8px 20px rgba(255, 90, 95, 0.35);
+    transform: translateY(-3px);
+    color: white;
+  }
+
+  .btn-premium:active {
+    transform: translateY(-1px);
+  }
+
+  /* Search Form */
+  .nav-search-form-premium {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-search-group-premium {
+    width: 280px;
+    height: 44px;
+    background-color: #f0f0f0;
+    border-radius: 24px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+
+  .nav-search-group-premium:focus-within {
+    background-color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(255, 90, 95, 0.15);
+  }
+
+  .search-icon-premium {
+    background-color: transparent !important;
+    color: var(--primary-color);
+    border: none !important;
+    padding: 0 12px;
+  }
+
+  .search-input-premium {
+    background-color: transparent !important;
+    color: #333;
+    font-size: 0.95rem;
+  }
+
+  .search-input-premium::placeholder {
+    color: #999;
+  }
+
+  .search-input-premium:focus {
+    outline: none;
+    box-shadow: none !important;
+  }
+
+  /* Dropdown Menu */
+  .dropdown-premium {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    min-width: 200px;
+    margin-top: 0.5rem;
+    overflow: hidden;
+  }
+
+  .dropdown-item-premium {
+    color: #555;
+    font-weight: 500;
+    padding: 0.75rem 1.2rem;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    margin: 0.3rem 0.5rem;
+  }
+
+  .dropdown-icon {
+    font-size: 1rem;
+    color: var(--primary-color);
+  }
+
+  .dropdown-item-premium:hover {
+    background-color: rgba(255, 90, 95, 0.1);
+    color: var(--primary-color);
+    transform: translateX(4px);
+  }
+
+  .dropdown-item-premium.active,
+  .dropdown-item-premium:active {
+    background-color: rgba(255, 90, 95, 0.15);
+    color: var(--primary-color);
+  }
+
+  /* Mobile Navbar Toggler */
+  .navbar-toggler-premium {
+    border-radius: 6px !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  .navbar-toggler-premium:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 90, 95, 0.25);
+  }
+
+  /* Responsive */
+  @media (max-width: 991px) {
+    .nav-item-premium {
+      padding: 0.6rem 0 !important;
+    }
+
+    .nav-item-premium::after {
+      display: none;
+    }
+
+    .nav-item-premium:hover::after {
+      display: none;
+    }
+
+    .navbar-nav {
+      padding-top: 1rem;
+      border-top: 2px solid rgba(255, 90, 95, 0.1);
+      margin-top: 1rem;
+    }
+
+    .nav-search-form-premium {
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+
+    .nav-search-group-premium {
+      width: 100%;
+    }
+  }
+</style>
+
+<!-- Mobile Navigation Bar -->
+<div class="mobile-nav">
+  <form action="/listings" method="GET" class="px-3 py-2 d-flex gap-2">
+    <input
+      type="text"
+      name="search"
+      class="form-control"
+      placeholder="Search properties"
+    />
+    <button class="btn btn-soft" type="submit">Search</button>
+  </form>
+  <a href="/listings" class="mobile-nav-item active">
+    <i class="fas fa-home"></i>
+    <span>Home</span>
+  </a>
+  <a href="/listings" class="mobile-nav-item">
+    <i class="fas fa-search"></i>
+    <span>Explore</span>
+  </a>
+  <a href="/listings/new" class="mobile-nav-item">
+    <i class="fas fa-plus-circle"></i>
+    <span>Add</span>
+  </a>
+  <a href="#" class="mobile-nav-item">
+    <i class="fas fa-heart"></i>
+    <span>Saved</span>
+  </a>
+  <% if (currUser) { %>
+  <a href="/users/<%= currUser._id %>" class="mobile-nav-item">
+    <i class="fas fa-user"></i>
+    <span>Profile</span>
+  </a>
+  <% } else { %>
+  <a href="/login" class="mobile-nav-item">
+    <i class="fas fa-user"></i>
+    <span>Login</span>
+  </a>
+  <% } %>
+</div>

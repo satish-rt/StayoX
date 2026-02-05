@@ -1,0 +1,568 @@
+<% layout("/layouts/boilerplate") %>
+
+<main class="max-w-6xl mx-auto px-6 md:px-12 py-20">
+  <!-- Header -->
+  <header class="text-center mb-16">
+    <h1 class="text-5xl md:text-6xl font-serif font-bold text-stone-900 dark:text-stone-50 mb-4">Complete Your Payment</h1>
+    <p class="text-lg text-stone-600 dark:text-stone-400 font-light">Secure booking for your dream vacation</p>
+  </header>
+
+  <div class="grid lg:grid-cols-2 gap-12">
+    <!-- Left - Booking Summary -->
+    <section class="border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 p-8 rounded-lg">
+      <h2 class="text-2xl font-serif font-bold text-stone-900 dark:text-stone-50 mb-8 pb-4 border-b border-stone-200 dark:border-stone-700">Booking Summary</h2>
+
+      <!-- Property -->
+      <div class="mb-8">
+        <p class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-2">Property</p>
+        <p class="text-lg font-serif font-bold text-stone-900 dark:text-stone-50 mb-1"><%= booking.listing.title %></p>
+        <p class="text-sm text-stone-600 dark:text-stone-400"><i class="fas fa-map-marker-alt"></i> <%= booking.listing.location %></p>
+      </div>
+
+      <!-- Dates -->
+      <div class="mb-8 pb-8 border-b border-stone-200 dark:border-stone-700">
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <p class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-2">Check In</p>
+            <p class="text-lg font-bold text-stone-900 dark:text-stone-50"><%= booking.checkIn.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></p>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-2">Check Out</p>
+            <p class="text-lg font-bold text-stone-900 dark:text-stone-50"><%= booking.checkOut.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Duration & Guests -->
+      <div class="grid grid-cols-2 gap-6">
+        <div>
+          <p class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-2"><i class="fas fa-moon"></i> Duration</p>
+          <p class="text-lg font-bold text-stone-900 dark:text-stone-50"><%= booking.numberOfNights %> Night<%= booking.numberOfNights !== 1 ? 's' : '' %></p>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-2"><i class="fas fa-users"></i> Guests</p>
+          <p class="text-lg font-bold text-stone-900 dark:text-stone-50"><%= booking.guests %> Guest<%= booking.guests !== 1 ? 's' : '' %></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right - Price & Payment -->
+    <div class="space-y-8">
+      <!-- Price Breakdown -->
+      <section class="border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 p-8 rounded-lg">
+        <h2 class="text-2xl font-serif font-bold text-stone-900 dark:text-stone-50 mb-8 pb-4 border-b border-stone-200 dark:border-stone-700">Price Breakdown</h2>
+
+        <div class="mb-6 pb-6 border-b border-stone-200 dark:border-stone-700">
+          <div class="flex justify-between items-center">
+            <span class="text-stone-600 dark:text-stone-400">₹<%= pricing.nightlyRate %> × <%= pricing.numberOfNights %> night<%= pricing.numberOfNights !== 1 ? 's' : '' %></span>
+            <span class="font-bold text-stone-900 dark:text-stone-50">₹<%= pricing.nightlyPrice.toFixed(2) %></span>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <div class="flex justify-between items-center">
+            <span class="text-stone-600 dark:text-stone-400"><i class="fas fa-percentage"></i> GST (18%)</span>
+            <span class="text-stone-600 dark:text-stone-400">₹<%= pricing.tax.toFixed(2) %></span>
+          </div>
+        </div>
+
+        <div class="mb-8 pb-8 border-b border-stone-200 dark:border-stone-700">
+          <div class="flex justify-between items-center">
+            <span class="text-stone-600 dark:text-stone-400"><i class="fas fa-cog"></i> Service Fee (5%)</span>
+            <span class="text-stone-600 dark:text-stone-400">₹<%= pricing.platformFee.toFixed(2) %></span>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <h3 class="text-lg font-bold text-stone-900 dark:text-stone-50">Total Amount</h3>
+          <h2 class="text-3xl font-serif font-bold text-primary">₹<%= pricing.totalPrice.toFixed(2) %></h2>
+        </div>
+      </section>
+
+      <!-- Security Info -->
+      <div class="border-l-4 border-primary bg-blue-50 dark:bg-blue-900/20 p-6 rounded">
+        <p class="text-sm text-stone-700 dark:text-stone-300">
+          <i class="fas fa-lock text-primary mr-2"></i>
+          <strong>Secure Payment</strong> - Your payment information is encrypted and secure.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Form -->
+  <section class="mt-16 border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 p-8 md:p-12 rounded-lg">
+    <h2 class="text-2xl font-serif font-bold text-stone-900 dark:text-stone-50 mb-8 pb-4 border-b border-stone-200 dark:border-stone-700">Guest Information</h2>
+    
+    <form id="payment-form" class="needs-validation space-y-8" novalidate>
+      <!-- Name & Email -->
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="flex flex-col">
+          <label for="card-name" class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-3">Full Name</label>
+          <input type="text" id="card-name" placeholder="John Doe" required class="bg-transparent border-0 border-b border-stone-300 dark:border-stone-600 px-0 py-2 focus:ring-0 text-lg font-light text-stone-900 dark:text-stone-50 transition-colors" />
+        </div>
+        
+        <div class="flex flex-col">
+          <label for="card-email" class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-3">Email</label>
+          <input type="email" id="card-email" placeholder="john@example.com" required class="bg-transparent border-0 border-b border-stone-300 dark:border-stone-600 px-0 py-2 focus:ring-0 text-lg font-light text-stone-900 dark:text-stone-50 transition-colors" />
+        </div>
+      </div>
+
+      <!-- Payment Method Selection -->
+      <div>
+        <label class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-4 block">Payment Method</label>
+        <div class="grid md:grid-cols-2 gap-4">
+          <label class="payment-option border-2 border-primary bg-primary/5 rounded-lg p-6 cursor-pointer transition-all" id="razorpay-option">
+            <input type="radio" name="paymentMethod" value="razorpay" checked class="mr-3">
+            <i class="fas fa-credit-card text-primary mr-2"></i>
+            <span class="font-bold text-stone-900 dark:text-stone-50">Card / Debit Card</span>
+            <div class="text-sm text-stone-600 dark:text-stone-400 mt-1">Via Razorpay Gateway</div>
+          </label>
+          
+          <label class="payment-option border-2 border-stone-300 dark:border-stone-600 rounded-lg p-6 cursor-pointer transition-all" id="upi-option">
+            <input type="radio" name="paymentMethod" value="upi" class="mr-3">
+            <i class="fas fa-mobile-alt text-orange-500 mr-2"></i>
+            <span class="font-bold text-stone-900 dark:text-stone-50">UPI ID</span>
+            <div class="text-sm text-stone-600 dark:text-stone-400 mt-1">Enter your UPI ID</div>
+          </label>
+
+          <label class="payment-option border-2 border-stone-300 dark:border-stone-600 rounded-lg p-6 cursor-pointer transition-all" id="upi-app-option">
+            <input type="radio" name="paymentMethod" value="upi-app" class="mr-3">
+            <i class="fas fa-qrcode text-blue-600 mr-2"></i>
+            <span class="font-bold text-stone-900 dark:text-stone-50">UPI App</span>
+            <div class="text-sm text-stone-600 dark:text-stone-400 mt-1">Google Pay, PhonePe, BHIM</div>
+          </label>
+
+          <label class="payment-option border-2 border-stone-300 dark:border-stone-600 rounded-lg p-6 cursor-pointer transition-all" id="qr-option">
+            <input type="radio" name="paymentMethod" value="qr" class="mr-3">
+            <i class="fas fa-qrcode text-green-600 mr-2"></i>
+            <span class="font-bold text-stone-900 dark:text-stone-50">Scan QR Code</span>
+            <div class="text-sm text-stone-600 dark:text-stone-400 mt-1">Scan with any UPI app</div>
+          </label>
+        </div>
+      </div>
+
+      <!-- UPI Fields (Hidden by default) -->
+      <div id="upi-fields" style="display: none;" class="border-l-4 border-orange-500 bg-orange-50 dark:bg-orange-900/20 p-6 rounded">
+        <h3 class="font-bold text-stone-900 dark:text-stone-50 mb-4"><i class="fas fa-mobile-alt text-orange-500 mr-2"></i>UPI Payment Details</h3>
+        
+        <div class="flex flex-col">
+          <label for="upi-id" class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-3">UPI ID</label>
+          <input type="text" id="upi-id" placeholder="name@upi" class="bg-transparent border-0 border-b border-stone-300 dark:border-stone-600 px-0 py-2 focus:ring-0 text-lg font-light text-stone-900 dark:text-stone-50 transition-colors" />
+          <small class="text-xs text-stone-500 dark:text-stone-400 mt-2">e.g., yourname@googlepay or yourname@phonepe</small>
+        </div>
+
+        <div class="border-l-4 border-blue-500 bg-blue-50 dark:bg-blue-900/20 p-4 mt-4 rounded">
+          <p class="text-sm text-stone-700 dark:text-stone-300"><strong>Secure UPI Payment:</strong> You will receive a payment request on your registered UPI app. Approve it to complete the payment.</p>
+        </div>
+      </div>
+
+      <!-- UPI App Fields (Hidden by default) -->
+      <div id="upi-app-fields" style="display: none;" class="border-l-4 border-blue-600 bg-blue-50 dark:bg-blue-900/20 p-6 rounded">
+        <h3 class="font-bold text-stone-900 dark:text-stone-50 mb-4"><i class="fas fa-qrcode text-blue-600 mr-2"></i>Select UPI App</h3>
+        
+        <div class="grid grid-cols-3 gap-3 mb-4">
+          <label class="border border-stone-300 dark:border-stone-600 rounded-lg p-4 cursor-pointer text-center hover:border-primary transition-colors">
+            <input type="radio" name="upiApp" value="googlepay" class="block mb-2">
+            <i class="fas fa-mobile-alt text-primary"></i>
+            <div class="text-xs font-bold mt-1">Google Pay</div>
+          </label>
+          <label class="border border-stone-300 dark:border-stone-600 rounded-lg p-4 cursor-pointer text-center hover:border-primary transition-colors">
+            <input type="radio" name="upiApp" value="phonepe" class="block mb-2">
+            <i class="fas fa-mobile-alt text-primary"></i>
+            <div class="text-xs font-bold mt-1">PhonePe</div>
+          </label>
+          <label class="border border-stone-300 dark:border-stone-600 rounded-lg p-4 cursor-pointer text-center hover:border-primary transition-colors">
+            <input type="radio" name="upiApp" value="bhim" class="block mb-2">
+            <i class="fas fa-mobile-alt text-primary"></i>
+            <div class="text-xs font-bold mt-1">BHIM</div>
+          </label>
+        </div>
+
+        <div class="border-l-4 border-blue-500 bg-blue-50 dark:bg-blue-900/20 p-4 rounded">
+          <p class="text-sm text-stone-700 dark:text-stone-300"><strong>UPI App Payment:</strong> You will be redirected to your selected UPI app to complete the payment.</p>
+        </div>
+      </div>
+
+      <!-- QR Code Fields (Hidden by default) -->
+      <div id="qr-fields" style="display: none;" class="border-l-4 border-green-600 bg-green-50 dark:bg-green-900/20 p-6 rounded text-center">
+        <h3 class="font-bold text-stone-900 dark:text-stone-50 mb-4"><i class="fas fa-qrcode text-green-600 mr-2"></i>Scan QR Code to Pay</h3>
+        
+        <div class="bg-white dark:bg-stone-800 p-6 rounded border-2 border-green-600 inline-block mb-6">
+          <svg id="qr-code" width="200" height="200"></svg>
+        </div>
+
+        <div class="border-l-4 border-green-600 bg-green-50 dark:bg-green-900/20 p-4 rounded">
+          <p class="text-sm text-stone-700 dark:text-stone-300"><strong>Scan with Any UPI App:</strong> Open any UPI app (Google Pay, PhonePe, BHIM) and scan this QR code to pay.</p>
+        </div>
+      </div>
+
+      <!-- Status Messages -->
+      <div id="payment-status" class="alert" style="display:none; border-radius: 8px;"></div>
+
+      <!-- Payment Button -->
+      <div class="flex flex-col gap-4 pt-8">
+        <button type="submit" id="pay-btn" class="bg-stone-900 dark:bg-stone-50 text-stone-50 dark:text-stone-900 px-8 py-4 text-sm uppercase tracking-widest font-bold hover:bg-black dark:hover:bg-white transition-colors">
+          <i class="fas fa-lock-open mr-2"></i>Pay ₹<%= pricing.totalPrice.toFixed(2) %>
+        </button>
+        <a href="/listings/<%= booking.listing._id %>" class="border border-stone-300 dark:border-stone-600 text-stone-900 dark:text-stone-50 px-8 py-4 text-sm uppercase tracking-widest font-bold hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors text-center">
+          <i class="fas fa-arrow-left mr-2"></i>Cancel Booking
+        </a>
+      </div>
+
+      <!-- Info -->
+      <div class="border-l-4 border-stone-300 dark:border-stone-600 bg-stone-100 dark:bg-stone-800 p-4 rounded">
+        <p class="text-sm text-stone-700 dark:text-stone-300">
+          <i class="fas fa-info-circle text-primary mr-2"></i>
+          <% if (!gatewayKeyId) { %>
+            <strong>Test Mode:</strong> Simulated payment for demonstration.
+          <% } else { %>
+            <strong>🔒 Secure Payment:</strong> Powered by Razorpay. Your payment information is encrypted.
+          <% } %>
+        </p>
+      </div>
+    </form>
+  </section>
+</main>
+
+<% if (gatewayKeyId) { %>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<% } %>
+
+<style>
+  input:focus, textarea:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: #0F172A !important;
+  }
+  
+  .dark input:focus,
+  .dark textarea:focus {
+    border-color: #f8f8f7 !important;
+  }
+
+  .payment-option {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+  }
+
+  .payment-option input[type="radio"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #d1d5db;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 12px;
+    margin-top: 2px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .payment-option input[type="radio"]:checked {
+    background-color: #174ecf;
+    border-color: #174ecf;
+  }
+
+  .payment-option:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  /* Hide non-card payment options for card-only flow */
+  #upi-option, #upi-app-option, #qr-option,
+  #upi-fields, #upi-app-fields, #qr-fields {
+    display: none !important;
+  }
+</style>
+
+<script>
+<% if (gatewayKeyId) { %>
+const hasGateway = true;
+const gatewayKey = '<%= gatewayKeyId %>';
+<% } else { %>
+const hasGateway = false;
+const gatewayKey = '';
+<% } %>
+const bookingId = '<%= booking._id %>';
+const totalAmount = <%= JSON.stringify(pricing.totalPrice) %>;
+
+// Toggle payment method fields based on selection
+document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+  radio.addEventListener('change', function() {
+    const upiFields = document.getElementById('upi-fields');
+    const upiAppFields = document.getElementById('upi-app-fields');
+    const qrFields = document.getElementById('qr-fields');
+    
+    const razorpayOption = document.getElementById('razorpay-option');
+    const upiOption = document.getElementById('upi-option');
+    const upiAppOption = document.getElementById('upi-app-option');
+    const qrOption = document.getElementById('qr-option');
+    
+    // Hide all fields first
+    upiFields.style.display = 'none';
+    upiAppFields.style.display = 'none';
+    qrFields.style.display = 'none';
+    
+    // Reset all option borders
+    [razorpayOption, upiOption, upiAppOption, qrOption].forEach(opt => {
+      opt.classList.remove('border-orange-500', 'border-blue-600', 'border-green-600', 'bg-orange-50', 'dark:bg-orange-900/20', 'bg-blue-50', 'dark:bg-blue-900/20', 'bg-green-50', 'dark:bg-green-900/20');
+      opt.classList.add('border-stone-300', 'dark:border-stone-600');
+    });
+    
+    // Show selected option fields
+    if (this.value === 'upi') {
+      upiFields.style.display = 'block';
+      upiOption.classList.remove('border-stone-300', 'dark:border-stone-600');
+      upiOption.classList.add('border-orange-500', 'bg-orange-50', 'dark:bg-orange-900/20');
+    } else if (this.value === 'upi-app') {
+      upiAppFields.style.display = 'block';
+      upiAppOption.classList.remove('border-stone-300', 'dark:border-stone-600');
+      upiAppOption.classList.add('border-blue-600', 'bg-blue-50', 'dark:bg-blue-900/20');
+    } else if (this.value === 'qr') {
+      qrFields.style.display = 'block';
+      qrOption.classList.remove('border-stone-300', 'dark:border-stone-600');
+      qrOption.classList.add('border-green-600', 'bg-green-50', 'dark:bg-green-900/20');
+      generateQRCode(totalAmount);
+    } else {
+      razorpayOption.classList.remove('border-stone-300', 'dark:border-stone-600');
+      razorpayOption.classList.add('border-primary', 'bg-primary/5', 'dark:bg-primary/10');
+    }
+  });
+});
+
+// Generate QR Code for payment
+function generateQRCode(amount) {
+  const qrSvg = document.getElementById('qr-code');
+  if (!qrSvg) return;
+  
+  qrSvg.innerHTML = `
+    <rect width="200" height="200" fill="white" stroke="#16a34a" stroke-width="2"/>
+    <rect x="10" y="10" width="30" height="30" fill="#16a34a"/>
+    <rect x="160" y="10" width="30" height="30" fill="#16a34a"/>
+    <rect x="10" y="160" width="30" height="30" fill="#16a34a"/>
+    <g fill="#16a34a">
+      <rect x="50" y="50" width="100" height="100"/>
+      <circle cx="100" cy="100" r="30" fill="white"/>
+      <circle cx="100" cy="100" r="20" fill="#16a34a"/>
+    </g>
+    <text x="100" y="195" font-size="10" text-anchor="middle" fill="#16a34a">₹${amount.toFixed(2)}</text>
+  `;
+}
+
+document.getElementById("payment-form").addEventListener("submit", async function (e) {
+  e.preventDefault();
+  
+  const nameField = document.getElementById('card-name').value;
+  const emailField = document.getElementById('card-email').value;
+  // Force card-only (Razorpay) flow
+  const paymentMethod = 'razorpay';
+  const statusDiv = document.getElementById('payment-status');
+  const payBtn = document.getElementById('pay-btn');
+  
+  if (!nameField || !emailField) {
+    statusDiv.style.display = 'block';
+    statusDiv.className = 'border-l-4 border-red-600 bg-red-50 dark:bg-red-900/20 p-4 rounded text-sm text-red-700 dark:text-red-300';
+    statusDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please fill in all required fields';
+    return;
+  }
+
+  // Validate based on payment method
+  if (paymentMethod === 'upi') {
+    const upiId = document.getElementById('upi-id').value.trim();
+    if (!upiId) {
+      statusDiv.style.display = 'block';
+      statusDiv.className = 'border-l-4 border-red-600 bg-red-50 dark:bg-red-900/20 p-4 rounded text-sm text-red-700 dark:text-red-300';
+      statusDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter your UPI ID';
+      return;
+    }
+    if (!/^[a-zA-Z0-9._-]+@[a-zA-Z]+$/.test(upiId)) {
+      statusDiv.style.display = 'block';
+      statusDiv.className = 'border-l-4 border-red-600 bg-red-50 dark:bg-red-900/20 p-4 rounded text-sm text-red-700 dark:text-red-300';
+      statusDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid UPI ID (e.g., name@upi)';
+      return;
+    }
+  }
+  
+  if (paymentMethod === 'upi-app') {
+    const selectedApp = document.querySelector('input[name="upiApp"]:checked');
+    if (!selectedApp) {
+      statusDiv.style.display = 'block';
+      statusDiv.className = 'border-l-4 border-red-600 bg-red-50 dark:bg-red-900/20 p-4 rounded text-sm text-red-700 dark:text-red-300';
+      statusDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please select a UPI app';
+      return;
+    }
+  }
+
+  payBtn.disabled = true;
+  payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+  statusDiv.style.display = 'none';
+  
+  if (paymentMethod === 'upi') {
+    try {
+      const upiId = document.getElementById('upi-id').value.trim();
+      statusDiv.style.display = 'block';
+      statusDiv.className = 'border-l-4 border-blue-600 bg-blue-50 dark:bg-blue-900/20 p-4 rounded text-sm text-blue-700 dark:text-blue-300';
+      statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending UPI payment request...';
+      
+      const upiRes = await fetch(`/bookings/${bookingId}/process-upi`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          upiId: upiId,
+          name: nameField,
+          email: emailField,
+          amount: totalAmount
+        })
+      });
+      
+      const upiData = await upiRes.json();
+      if (!upiRes.ok) throw new Error(upiData.error || 'UPI payment failed');
+      
+      statusDiv.className = 'border-l-4 border-green-600 bg-green-50 dark:bg-green-900/20 p-4 rounded text-sm text-green-700 dark:text-green-300';
+      statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> <strong>UPI Payment Successful!</strong> Redirecting...';
+      setTimeout(() => {
+        window.location.href = `/bookings/${bookingId}/confirmation`;
+      }, 1500);
+    } catch (err) {
+      statusDiv.style.display = 'block';
+      statusDiv.className = 'border-l-4 border-red-600 bg-red-50 dark:bg-red-900/20 p-4 rounded text-sm text-red-700 dark:text-red-300';
+      statusDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + err.message;
+      payBtn.disabled = false;
+      payBtn.innerHTML = '<i class="fas fa-lock-open mr-2"></i>Pay ₹' + totalAmount.toFixed(2);
+    }
+  } else if (paymentMethod === 'upi-app') {
+    try {
+      const selectedApp = document.querySelector('input[name="upiApp"]:checked').value;
+      statusDiv.style.display = 'block';
+      statusDiv.className = 'border-l-4 border-blue-600 bg-blue-50 dark:bg-blue-900/20 p-4 rounded text-sm text-blue-700 dark:text-blue-300';
+      statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting to ' + selectedApp + '...';
+      
+      const appRes = await fetch(`/bookings/${bookingId}/process-upi-app`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          upiApp: selectedApp,
+          name: nameField,
+          email: emailField,
+          amount: totalAmount
+        })
+      });
+      
+      const appData = await appRes.json();
+      if (!appRes.ok) throw new Error(appData.error || 'UPI app payment failed');
+      
+      statusDiv.className = 'border-l-4 border-green-600 bg-green-50 dark:bg-green-900/20 p-4 rounded text-sm text-green-700 dark:text-green-300';
+      statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> <strong>Payment Initiated!</strong> Redirecting...';
+      setTimeout(() => {
+        window.location.href = `/bookings/${bookingId}/confirmation`;
+      }, 1500);
+    } catch (err) {
+      statusDiv.style.display = 'block';
+      statusDiv.className = 'border-l-4 border-red-600 bg-red-50 dark:bg-red-900/20 p-4 rounded text-sm text-red-700 dark:text-red-300';
+      statusDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + err.message;
+      payBtn.disabled = false;
+      payBtn.innerHTML = '<i class="fas fa-lock-open mr-2"></i>Pay ₹' + totalAmount.toFixed(2);
+    }
+  } else if (paymentMethod === 'qr') {
+    try {
+      statusDiv.style.display = 'block';
+      statusDiv.className = 'border-l-4 border-blue-600 bg-blue-50 dark:bg-blue-900/20 p-4 rounded text-sm text-blue-700 dark:text-blue-300';
+      statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing QR code payment...';
+      
+      const qrRes = await fetch(`/bookings/${bookingId}/process-qr`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: nameField,
+          email: emailField,
+          amount: totalAmount
+        })
+      });
+      
+      const qrData = await qrRes.json();
+      if (!qrRes.ok) throw new Error(qrData.error || 'QR payment failed');
+      
+      statusDiv.className = 'border-l-4 border-green-600 bg-green-50 dark:bg-green-900/20 p-4 rounded text-sm text-green-700 dark:text-green-300';
+      statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> <strong>QR Payment Successful!</strong> Redirecting...';
+      setTimeout(() => {
+        window.location.href = `/bookings/${bookingId}/confirmation`;
+      }, 1500);
+    } catch (err) {
+      statusDiv.style.display = 'block';
+      statusDiv.className = 'border-l-4 border-red-600 bg-red-50 dark:bg-red-900/20 p-4 rounded text-sm text-red-700 dark:text-red-300';
+      statusDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + err.message;
+      payBtn.disabled = false;
+      payBtn.innerHTML = '<i class="fas fa-lock-open mr-2"></i>Pay ₹' + totalAmount.toFixed(2);
+    }
+  } else {
+    // Razorpay card-only flow
+    if (!hasGateway) {
+      statusDiv.style.display = 'block';
+      statusDiv.className = 'border-l-4 border-red-600 bg-red-50 dark:bg-red-900/20 p-4 rounded text-sm text-red-700 dark:text-red-300';
+      statusDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Payment gateway not configured. Please add RAZORPAY_KEY_ID to server .env';
+      payBtn.disabled = false;
+      payBtn.innerHTML = '<i class="fas fa-lock-open mr-2"></i>Pay ₹' + Number(totalAmount).toFixed(2);
+      return;
+    }
+    try {
+      const orderRes = await fetch(`/bookings/${bookingId}/create-order`, { 
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      
+      const orderData = await orderRes.json();
+      if (!orderRes.ok) throw new Error(orderData.error || 'Failed to create order');
+      
+      const options = {
+        key: gatewayKey || '<%= gatewayKeyId %>',
+        amount: orderData.amount,
+        currency: orderData.currency,
+        order_id: orderData.orderId,
+        name: 'MojorProject',
+        description: 'Vacation Rental Booking',
+        prefill: {
+          name: nameField,
+          email: emailField
+        },
+        handler: async function (resp) {
+          try {
+            const successRes = await fetch(`/bookings/${bookingId}/payment-success`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ 
+                payment_id: resp.razorpay_payment_id, 
+                order_id: resp.razorpay_order_id,
+                signature: resp.razorpay_signature
+              })
+            });
+            
+            const successData = await successRes.json();
+            if (successRes.ok) {
+              window.location.href = `/bookings/${bookingId}/confirmation`;
+            } else {
+              throw new Error(successData.error || 'Payment verification failed');
+            }
+          } catch (error) {
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'border-l-4 border-red-600 bg-red-50 dark:bg-red-900/20 p-4 rounded text-sm text-red-700 dark:text-red-300';
+            statusDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + error.message;
+            payBtn.disabled = false;
+            payBtn.innerHTML = '<i class="fas fa-lock-open mr-2"></i>Pay ₹' + Number(totalAmount).toFixed(2);
+          }
+        },
+        theme: { color: '#174ecf' }
+      };
+      
+      const rzp = new Razorpay(options);
+      rzp.open();
+    } catch (err) {
+      statusDiv.style.display = 'block';
+      statusDiv.className = 'border-l-4 border-red-600 bg-red-50 dark:bg-red-900/20 p-4 rounded text-sm text-red-700 dark:text-red-300';
+      statusDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + err.message;
+      payBtn.disabled = false;
+      payBtn.innerHTML = '<i class="fas fa-lock-open mr-2"></i>Pay ₹' + Number(totalAmount).toFixed(2);
+    }
+  }
+});
+</script>
+

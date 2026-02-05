@@ -1,0 +1,128 @@
+<% layout("/layouts/boilerplate") %>
+
+<section class="py-14">
+
+  <!-- Page Header -->
+  <header class="mb-12">
+    <h1 class="font-header text-4xl font-bold text-slate-900 dark:text-white mb-2">
+      My Bookings
+    </h1>
+    <p class="text-slate-500 dark:text-slate-400">
+      All your reservations in one place
+    </p>
+  </header>
+
+  <!-- Empty State -->
+  <% if (bookings.length === 0) { %>
+    <div class="bg-white dark:bg-[#141a2b] rounded-2xl p-10 text-center shadow-sm">
+      <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
+        You don’t have any bookings yet.
+      </p>
+      <a
+        href="/listings"
+        class="inline-flex items-center px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition"
+      >
+        Browse Properties
+      </a>
+    </div>
+  <% } else { %>
+
+  <!-- Booking Cards -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+    <% bookings.forEach(booking => { %>
+      <% if (booking.listing) { %>
+      <article class="bg-white dark:bg-[#141a2b] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all">
+
+        <div class="flex flex-col md:flex-row">
+
+          <!-- Image -->
+          <div class="md:w-1/3 aspect-[4/3] md:aspect-auto md:h-full overflow-hidden">
+            <img
+              src="<%= booking.listing.image && booking.listing.image.url ? booking.listing.image.url : '/images/placeholder.png' %>"
+              alt="<%= booking.listing.title %>"
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <!-- Content -->
+          <div class="flex-1 p-6 flex flex-col justify-between">
+
+            <!-- Top -->
+            <div>
+              <h3 class="font-header text-xl font-semibold text-slate-900 dark:text-white mb-1">
+                <%= booking.listing.title %>
+              </h3>
+
+              <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-base">location_on</span>
+                <%= booking.listing.location %>, <%= booking.listing.country %>
+              </p>
+
+              <!-- Details -->
+              <div class="grid grid-cols-2 gap-y-2 text-sm text-slate-600 dark:text-slate-300">
+                <span>Check-in</span>
+                <span class="font-medium"><%= booking.checkIn.toLocaleDateString() %></span>
+
+                <span>Check-out</span>
+                <span class="font-medium"><%= booking.checkOut.toLocaleDateString() %></span>
+
+                <span>Guests</span>
+                <span class="font-medium"><%= booking.guests %></span>
+
+                <span>Total</span>
+                <span class="font-semibold text-slate-900 dark:text-white">
+                  ₹<%= booking.totalPrice %>
+                </span>
+              </div>
+            </div>
+
+            <!-- Bottom Actions -->
+            <div class="mt-6 flex items-center justify-between">
+
+              <!-- Status -->
+              <% if (booking.paymentStatus === "completed") { %>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+                  Confirmed
+                </span>
+              <% } else if (booking.paymentStatus === "pending") { %>
+                <div class="flex items-center gap-3">
+                  <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400">
+                    Payment Pending
+                  </span>
+                  <a
+                    href="/bookings/<%= booking._id %>/payment"
+                    class="text-sm font-semibold text-primary hover:underline"
+                  >
+                    Complete Payment →
+                  </a>
+                </div>
+              <% } %>
+
+              <!-- Cancel -->
+              <form
+                action="/bookings/<%= booking._id %>?_method=DELETE"
+                method="POST"
+                onsubmit="return confirm('Are you sure you want to cancel this booking?');"
+              >
+                <button
+                  type="submit"
+                  class="text-sm font-medium text-red-600 hover:text-red-700"
+                >
+                  Cancel
+                </button>
+              </form>
+
+            </div>
+
+          </div>
+        </div>
+
+      </article>
+      <% } %>
+    <% }) %>
+
+  </div>
+  <% } %>
+
+</section>

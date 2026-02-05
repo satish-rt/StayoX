@@ -1,95 +1,414 @@
 <% layout("/layouts/boilerplate") %>
-  <div class="container mt-3">
 
-    <!-- Title -->
-    <div class="row">
-      <div class="col-md-8 offset-md-2">
-        <h3><%= listing.title %></h3>
-      </div>
+<main class="w-full">
+  <!-- Main Image Gallery -->
+  <section class="w-full mb-20">
+    <div class="w-full overflow-hidden" style="height: 70vh;">
+      <img alt="<%= listing.title %>" class="w-full h-full object-cover" src="<%= listing.image.url %>">
     </div>
+  </section>
 
-    <!-- Listing Card -->
-    <div class="row">
-      <div class="card col-md-6 mx-auto show-card">
-        <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing image">
-        <div class="card-body">
-          <p class="card-text"><i>Owned by <%= listing.owner.username %></i></p>
-          <p class="card-text"><%= listing.description %></p>
-          <p class="card-text"><strong>Price:</strong> ₹ <%= listing.price ? listing.price : "N/A" %></p>
-          <p class="card-text"><strong>Location:</strong> <%= listing.location %></p>
-          <p class="card-text"><strong>Country:</strong> <%= listing.country %></p>
+  <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-16 pb-32">
+    <article class="lg:col-span-7 flex flex-col">
+      <!-- Property Header -->
+      <header class="mb-16 w-full">
+        <div class="text-xs uppercase tracking-widest font-bold text-slate-500 dark:text-slate-400 mb-4">
+          <%= listing.location %> • <%= listing.country %>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-header mb-8 leading-tight text-slate-900 dark:text-white">
+          <%= listing.title %>
+        </h1>
+        <div class="flex items-center justify-start gap-8 text-xs uppercase tracking-widest font-bold border-b border-slate-200 dark:border-slate-700 py-6">
+          <% if(listing.maxGuests) { %>
+            <span><%= listing.maxGuests %> Guests</span>
+          <% } %>
+          <% if(listing.bedrooms) { %>
+            <span><%= listing.bedrooms %> Bedrooms</span>
+          <% } %>
+          <% if(listing.bathrooms) { %>
+            <span><%= listing.bathrooms %> Baths</span>
+          <% } %>
+          <% if(listing.reviews && listing.reviews.length > 0) { %>
+            <% 
+              let totalRating = 0;
+              listing.reviews.forEach(review => { totalRating += review.rating; });
+              const avgRating = (totalRating / listing.reviews.length).toFixed(2);
+            %>
+            <span class="flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm fill-current">star</span> <%= avgRating %>
+            </span>
+          <% } %>
+        </div>
+      </header>
 
-          <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
-            <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark mt-3">Edit</a>
-            <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE" class="d-inline">
-              <button type="submit" class="btn btn-danger mt-3">Delete</button>
-            </form>
+      <!-- Property Description -->
+      <div class="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed font-light mb-12">
+        <p class="text-xl font-header italic mb-6 text-slate-900 dark:text-white">
+          "<%= listing.description.substring(0, 100) %>..."
+        </p>
+        <p class="mb-6">
+          <%= listing.description %>
+        </p>
+      </div>
+
+      <!-- Property Specifications -->
+      <div class="w-full border-t border-slate-200 dark:border-slate-700 pt-12 mb-20">
+        <h3 class="text-xs uppercase tracking-widest font-bold mb-10 text-center text-slate-900 dark:text-white">Property Details</h3>
+        <div class="grid grid-cols-2 gap-y-6 gap-x-8">
+          <% if(listing.bedrooms) { %>
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
+              <span class="text-xs uppercase tracking-widest font-bold text-slate-600 dark:text-slate-400">Bedrooms</span>
+              <span class="text-sm font-semibold text-slate-900 dark:text-white"><%= listing.bedrooms %></span>
+            </div>
+          <% } %>
+          <% if(listing.bathrooms) { %>
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
+              <span class="text-xs uppercase tracking-widest font-bold text-slate-600 dark:text-slate-400">Bathrooms</span>
+              <span class="text-sm font-semibold text-slate-900 dark:text-white"><%= listing.bathrooms %></span>
+            </div>
+          <% } %>
+          <% if(listing.squareFeet) { %>
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
+              <span class="text-xs uppercase tracking-widest font-bold text-slate-600 dark:text-slate-400">Area</span>
+              <span class="text-sm font-semibold text-slate-900 dark:text-white"><%= listing.squareFeet %> sqft</span>
+            </div>
+          <% } %>
+          <% if(listing.listingType) { %>
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
+              <span class="text-xs uppercase tracking-widest font-bold text-slate-600 dark:text-slate-400">Type</span>
+              <span class="text-sm font-semibold text-slate-900 dark:text-white"><%= listing.listingType %></span>
+            </div>
           <% } %>
         </div>
       </div>
-    </div>
 
-    <!-- Review Form -->
-    <div class="row mt-4">
-      <div class="col-md-8 offset-md-2">
-        <h4>Leave a Review</h4>
+      <!-- Owner Card -->
+      <div class="w-full py-12 border-y border-slate-200 dark:border-slate-700 flex items-center gap-6 mb-12">
+        <div class="w-16 h-16 flex items-center justify-center bg-slate-900 dark:bg-slate-700 text-slate-50 dark:text-white font-header text-2xl">
+          <%= listing.owner.profileEmoji || '👤' %>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase tracking-widest font-bold mb-1 text-slate-900 dark:text-white">Hosted by <%= listing.owner.username %></h4>
+          <p class="text-sm text-slate-500 dark:text-slate-400 italic">Property Owner</p>
+        </div>
+        <a href="/users/<%= listing.owner._id %>" class="ml-auto text-xs uppercase tracking-widest font-bold border border-slate-300 dark:border-slate-600 px-6 py-3 hover:bg-slate-900 dark:hover:bg-white hover:text-white dark:hover:text-slate-900 transition-colors">
+          View Profile
+        </a>
+      </div>
 
-        <% if (currUser) { %>
-           <hr>
-          <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation">
-            <!-- Star Rating -->
-            <div class="mb-3">
-              <legend>Rating:</legend>
-              <fieldset class="starability-slot">
-                <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating.">
-                <input type="radio" id="first-rate1" name="review[rating]" value="1">
-                <label for="first-rate1" title="Terrible">1 star</label>
-                <input type="radio" id="first-rate2" name="review[rating]" value="2">
-                <label for="first-rate2" title="Not good">2 stars</label>
-                <input type="radio" id="first-rate3" name="review[rating]" value="3">
-                <label for="first-rate3" title="Average">3 stars</label>
-                <input type="radio" id="first-rate4" name="review[rating]" value="4">
-                <label for="first-rate4" title="Very good">4 stars</label>
-                <input type="radio" id="first-rate5" name="review[rating]" value="5">
-                <label for="first-rate5" title="Amazing">5 stars</label>
-              </fieldset>
-            </div>
-
-            <!-- Comment -->
-            <div class="mb-3">
-              <label for="comment" class="form-label">Comment</label>
-              <textarea name="review[comment]" id="comment" rows="5" class="form-control" required></textarea>
-              <div class="valid-feedback">Comment looks good!</div>
-              <div class="invalid-feedback">Please enter a comment.</div>
-            </div>
-
-            <button class="btn btn-outline-dark">Submit</button>
-          </form>
-        <% } %>
-
-        <!-- Show All Reviews -->
-        <hr class="mt-4">
-        <h5><strong>All Reviews</strong></h5>
-        <div class="row">
-          <% for (let review of listing.reviews) { %>
-            <div class="card col-md-5 ms-3 mb-3 card-review">
-              <div class="card-body">
-                <h6 class="card-title"><%= review.author.username %></h6>
-                <p class="card-text"><%= review.comment %></p>
-                <p class="card-text" aria-label="Rating: <%= review.rating %> out of 5">
-                  <% for (let i = 0; i < review.rating; i++) { %>⭐<% } %>
+      <!-- Reviews Section -->
+      <div class="w-full mb-12">
+        <h3 class="text-xs uppercase tracking-widest font-bold mb-10 text-center text-slate-900 dark:text-white">Guest Reviews</h3>
+        <% if(listing.reviews && listing.reviews.length > 0) { %>
+          <div class="space-y-10">
+            <% listing.reviews.slice(0, 3).forEach(review => { %>
+              <div class="border-b border-slate-200 dark:border-slate-700 pb-10">
+                <p class="font-header text-lg italic mb-4 leading-relaxed text-slate-900 dark:text-white">
+                  "<%= review.comment %>"
                 </p>
-
-                <% if (currUser && currUser._id.equals(review.author._id)) { %>
-                  <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" class="mt-2">
-                    <button class="btn btn-sm btn-outline-danger">Delete</button>
+                <div class="flex justify-between items-center text-xs uppercase tracking-widest font-bold text-slate-500 dark:text-slate-400">
+                  <span class="text-slate-900 dark:text-white">
+                    <%= review.author.username %> — 
+                    <%= new Date(review.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long' }) %>
+                  </span>
+                  <div class="flex gap-1">
+                    <% for (let i = 0; i < review.rating; i++) { %>
+                      <span class="material-symbols-outlined text-sm fill-current text-yellow-500">star</span>
+                    <% } %>
+                    <% for (let i = review.rating; i < 5; i++) { %>
+                      <span class="material-symbols-outlined text-sm text-slate-300 dark:text-slate-600">star</span>
+                    <% } %>
+                  </div>
+                </div>
+                <% if(currUser && review.author._id.equals(currUser._id)) { %>
+                  <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" class="mt-3">
+                    <button class="text-xs text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 uppercase tracking-widest font-bold transition-colors" type="submit">Delete Review</button>
                   </form>
                 <% } %>
               </div>
+            <% }); %>
+          </div>
+        <% } else { %>
+          <p class="text-slate-600 dark:text-slate-400 text-center">No reviews yet. Be the first to share your experience!</p>
+        <% } %>
+      </div>
+
+      <!-- Review Form -->
+      <% if (currUser) { %>
+        <div class="w-full border-t border-slate-200 dark:border-slate-700 pt-12">
+          <h3 class="text-xs uppercase tracking-widest font-bold mb-10 text-center text-slate-900 dark:text-white">Leave a Review</h3>
+          <form action="/listings/<%= listing._id %>/reviews" method="POST" class="space-y-6">
+            <!-- Star Rating -->
+            <div>
+              <label class="block text-xs font-bold text-slate-900 dark:text-white mb-4 uppercase tracking-widest">Your Rating</label>
+              <div class="flex gap-3">
+                <% for(let i = 1; i <= 5; i++) { %>
+                  <label class="cursor-pointer">
+                    <input type="radio" name="review[rating]" value="<%= i %>" class="sr-only peer" <%= i === 5 ? 'checked' : '' %>>
+                    <span class="material-symbols-outlined text-3xl text-slate-300 dark:text-slate-600 peer-checked:text-yellow-500 peer-checked:fill-current transition-colors cursor-pointer hover:text-yellow-400">star</span>
+                  </label>
+                <% } %>
+              </div>
+            </div>
+
+            <!-- Comment -->
+            <div>
+              <label for="comment" class="block text-xs font-bold text-slate-900 dark:text-white mb-3 uppercase tracking-widest">Your Review</label>
+              <textarea name="review[comment]" id="comment" rows="5" class="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-none bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-900 dark:focus:ring-white focus:border-transparent outline-none transition-ring" placeholder="Share your experience..." required></textarea>
+            </div>
+
+            <button type="submit" class="px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold uppercase tracking-widest hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors rounded-none">
+              Submit Review
+            </button>
+          </form>
+        </div>
+      <% } %>
+
+      <!-- Map -->
+      <section class="w-full mt-12">
+        <h3 class="text-xs uppercase tracking-widest font-bold mb-6 text-slate-900 dark:text-white">Location</h3>
+        <div id="map" class="w-full h-96 bg-slate-200 dark:bg-slate-800 rounded-none overflow-hidden" data-lat="<%= listing.latitude || '' %>" data-lng="<%= listing.longitude || '' %>"></div>
+      </section>
+    </article>
+
+    <!-- Booking Sidebar -->
+    <aside class="lg:col-span-5">
+      <div class="sticky top-20 border border-slate-200 dark:border-slate-700 p-8 bg-white dark:bg-slate-800 rounded-none">
+        <div class="flex justify-between items-end mb-8">
+          <div>
+            <span class="text-3xl font-header">₹<%= listing.price ? listing.price.toLocaleString('en-IN') : '0' %></span>
+            <span class="text-xs uppercase tracking-widest font-bold text-slate-500 dark:text-slate-400 ml-2">/ night</span>
+          </div>
+          <% if(listing.reviews && listing.reviews.length > 0) { %>
+            <% 
+              let totalRating = 0;
+              listing.reviews.forEach(review => { totalRating += review.rating; });
+              const avgRating = (totalRating / listing.reviews.length).toFixed(2);
+            %>
+            <div class="flex items-center gap-1 text-xs font-bold text-slate-900 dark:text-white">
+              <span class="material-symbols-outlined text-sm fill-current">star</span> <%= avgRating %>
             </div>
           <% } %>
         </div>
-      </div>
-    </div>
 
+        <!-- Booking Form -->
+        <form id="booking-form">
+          <div class="grid grid-cols-2 border border-slate-200 dark:border-slate-700 mb-8 rounded-none">
+            <div class="p-4 border-r border-slate-200 dark:border-slate-700">
+              <label for="check-in" class="block text-xs uppercase tracking-widest font-bold text-slate-500 dark:text-slate-400 mb-2">Arrival</label>
+              <input type="date" id="check-in" required class="w-full text-sm font-bold text-slate-900 dark:text-white bg-transparent border-none p-0 focus:ring-0 outline-none">
+            </div>
+            <div class="p-4">
+              <label for="check-out" class="block text-xs uppercase tracking-widest font-bold text-slate-500 dark:text-slate-400 mb-2">Departure</label>
+              <input type="date" id="check-out" required class="w-full text-sm font-bold text-slate-900 dark:text-white bg-transparent border-none p-0 focus:ring-0 outline-none">
+            </div>
+            <div class="col-span-2 p-4 border-t border-slate-200 dark:border-slate-700">
+              <label for="nights" class="block text-xs uppercase tracking-widest font-bold text-slate-500 dark:text-slate-400 mb-2">Nights</label>
+              <input type="number" id="nights" value="1" min="1" max="90" readonly class="w-full text-sm font-bold text-slate-900 dark:text-white bg-transparent border-none p-0 focus:ring-0 outline-none">
+            </div>
+            <div class="col-span-2 p-4 border-t border-slate-200 dark:border-slate-700">
+              <label for="guests" class="block text-xs uppercase tracking-widest font-bold text-slate-500 dark:text-slate-400 mb-2">Guests</label>
+              <select id="guests" required class="w-full text-sm font-bold text-slate-900 dark:text-white bg-transparent border-none p-0 focus:ring-0 outline-none">
+                <option value="">Select guests</option>
+                <% const maxGuests = listing.maxGuests || 5; %>
+                <% for(let i = 1; i <= Math.min(maxGuests, 10); i++) { %>
+                  <option value="<%= i %>"><%= i %> <%= i === 1 ? 'ADULT' : 'ADULTS' %></option>
+                <% } %>
+              </select>
+            </div>
+          </div>
+        </form>
+
+        <!-- Price Breakdown -->
+        <div id="price-breakdown" class="space-y-4 mb-8">
+          <div class="flex justify-between text-sm">
+            <span class="text-slate-500 dark:text-slate-400">₹<%= listing.price ? listing.price.toLocaleString('en-IN') : '0' %> x <span id="nights-count">0</span> nights</span>
+            <span class="font-bold text-slate-900 dark:text-white" id="subtotal-amount">₹0</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-slate-500 dark:text-slate-400">Cleaning Fee</span>
+            <span class="font-bold text-slate-900 dark:text-white" id="cleaning-fee-amount">₹0</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-slate-500 dark:text-slate-400">GST (18%) + Service (5%)</span>
+            <span class="font-bold text-slate-900 dark:text-white" id="service-fee">₹0</span>
+          </div>
+          <div class="pt-4 border-t border-slate-200 dark:border-slate-700 flex justify-between">
+            <span class="text-xs uppercase tracking-widest font-bold text-slate-900 dark:text-white">Total</span>
+            <span class="text-xl font-header text-slate-900 dark:text-white" id="total-amount">₹0</span>
+          </div>
+        </div>
+
+        <button type="button" id="book-now-btn" class="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-5 text-xs uppercase tracking-widest font-bold hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors rounded-none">
+          Book Now
+        </button>
+        <p class="text-xs text-center text-slate-500 dark:text-slate-400 mt-6 uppercase tracking-widest">No charges will be applied yet</p>
+      </div>
+    </aside>
   </div>
+</main>
+</main>
+
+<script>
+  // Helper: calculate nights between two dates
+  function calculateNights(ci, co) {
+    if (!ci || !co) return 0;
+    const inDate = new Date(ci);
+    const outDate = new Date(co);
+    const ms = outDate.getTime() - inDate.getTime();
+    const nights = Math.max(1, Math.ceil(ms / (1000 * 60 * 60 * 24)));
+    return nights;
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const nightsInput = document.getElementById('nights');
+    const checkInInput = document.getElementById('check-in');
+    const checkOutInput = document.getElementById('check-out');
+    const guestsInput = document.getElementById('guests');
+    const bookNowBtn = document.getElementById('book-now-btn');
+    const bookingForm = document.getElementById('booking-form');
+
+    // Validate all required elements exist
+    if (!checkInInput || !checkOutInput || !nightsInput || !guestsInput || !bookNowBtn) {
+      console.error('Missing booking form elements');
+      return;
+    }
+
+    function updatePricing() {
+      const pricePerNight = <%= listing.price || 0 %>;
+      const ci = checkInInput.value;
+      const co = checkOutInput.value;
+      
+      let nights = 0;
+      
+      // Calculate nights from dates if both are selected
+      if (ci && co) {
+        nights = calculateNights(ci, co);
+        if (nights > 0) {
+          nightsInput.value = nights;
+        }
+      } else {
+        nights = parseInt(nightsInput.value) || 0;
+      }
+      
+      // Reset display if no valid nights
+      if (nights < 1) {
+        document.getElementById('nights-count').textContent = '0';
+        document.getElementById('subtotal-amount').textContent = '₹0';
+        document.getElementById('cleaning-fee-amount').textContent = '₹0';
+        document.getElementById('service-fee').textContent = '₹0';
+        document.getElementById('total-amount').textContent = '₹0';
+        return;
+      }
+      
+      // Calculate all fees
+      const basePrice = pricePerNight * nights;
+      const cleaningFee = 500;
+      const gstTax = Math.round(basePrice * 0.18);
+      const serviceFee = Math.round(basePrice * 0.05);
+      const total = basePrice + cleaningFee + gstTax + serviceFee;
+
+      // Update all price elements
+      const nightsCountEl = document.getElementById('nights-count');
+      const subtotalEl = document.getElementById('subtotal-amount');
+      const cleaningFeeEl = document.getElementById('cleaning-fee-amount');
+      const serviceFeeEl = document.getElementById('service-fee');
+      const totalEl = document.getElementById('total-amount');
+
+      if (nightsCountEl) nightsCountEl.textContent = nights;
+      if (subtotalEl) subtotalEl.textContent = `₹${basePrice.toLocaleString('en-IN')}`;
+      if (cleaningFeeEl) cleaningFeeEl.textContent = `₹${cleaningFee.toLocaleString('en-IN')}`;
+      if (serviceFeeEl) serviceFeeEl.textContent = `₹${(gstTax + serviceFee).toLocaleString('en-IN')}`;
+      if (totalEl) totalEl.textContent = `₹${total.toLocaleString('en-IN')}`;
+
+      return { nights, total, basePrice, gstTax, serviceFee, cleaningFee };
+    }
+
+    // Event listeners for automatic price updates
+    checkInInput.addEventListener('change', updatePricing);
+    checkOutInput.addEventListener('change', updatePricing);
+    guestsInput.addEventListener('change', updatePricing);
+    nightsInput.addEventListener('change', updatePricing);
+    nightsInput.addEventListener('input', updatePricing);
+
+    // Book Now button handler
+    bookNowBtn.addEventListener('click', async function(e) {
+      e.preventDefault();
+      
+      const ci = checkInInput.value;
+      const co = checkOutInput.value;
+      const guests = guestsInput.value;
+
+      // Validate all fields
+      if (!ci) {
+        alert('Please select a check-in date');
+        return;
+      }
+      if (!co) {
+        alert('Please select a check-out date');
+        return;
+      }
+      if (!guests) {
+        alert('Please select number of guests');
+        return;
+      }
+
+      // Validate dates
+      const inDate = new Date(ci);
+      const outDate = new Date(co);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      if (inDate < today) {
+        alert('Check-in date cannot be in the past');
+        return;
+      }
+      if (outDate <= inDate) {
+        alert('Check-out date must be after check-in date');
+        return;
+      }
+
+      const originalText = this.textContent;
+      this.textContent = 'Processing...';
+      this.disabled = true;
+
+      try {
+        const resp = await fetch('/bookings/create/<%= listing._id %>', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            booking: { 
+              checkIn: ci, 
+              checkOut: co, 
+              guests: parseInt(guests)
+            }
+          })
+        });
+
+        if (!resp.ok) {
+          const error = await resp.json().catch(() => ({ error: 'Failed to create booking' }));
+          throw new Error(error.error || `Server error: ${resp.status}`);
+        }
+
+        const data = await resp.json();
+        
+        // Redirect to payment page
+        if (data.bookingId) {
+          window.location.href = `/bookings/${data.bookingId}/payment`;
+        } else if (data.redirectUrl) {
+          window.location.href = data.redirectUrl;
+        } else {
+          throw new Error('No booking ID received');
+        }
+      } catch (err) {
+        console.error('Booking error:', err);
+        alert('Booking error: ' + err.message);
+        this.textContent = originalText;
+        this.disabled = false;
+      }
+    });
+
+    // Initial price calculation
+    updatePricing();
+  });
+</script>

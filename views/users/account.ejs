@@ -1,0 +1,248 @@
+<% layout("/layouts/boilerplate") %>
+
+<main class="max-w-7xl mx-auto px-6 md:px-12 py-20">
+  <div class="grid lg:grid-cols-5 gap-12 lg:gap-16">
+    <!-- Sidebar -->
+    <aside class="lg:col-span-1">
+      <!-- Profile Card -->
+      <div class="mb-8">
+        <!-- Profile Emoji -->
+        <div class="flex justify-center mb-6">
+          <div class="relative inline-block">
+            <div class="w-32 h-32 border-4 border-stone-300 dark:border-stone-600 flex items-center justify-center text-5xl bg-stone-100 dark:bg-stone-800" id="profileEmoji">
+              <%= userDetails.profileEmoji || '👤' %>
+            </div>
+            <button type="button" class="absolute bottom-0 right-0 bg-primary text-white p-2 rounded-full hover:bg-primary/90 transition" data-bs-toggle="modal" data-bs-target="#emojiPickerModal">
+              <span class="material-symbols-outlined text-[18px]">edit</span>
+            </button>
+          </div>
+        </div>
+        
+        <div class="text-center">
+          <h2 class="text-xl font-serif font-bold text-stone-900 dark:text-stone-50 mb-1"><%= userDetails.firstName %> <%= userDetails.lastName %></h2>
+          <p class="text-sm text-stone-600 dark:text-stone-400"><%= userDetails.email %></p>
+        </div>
+      </div>
+      
+      <!-- Divider -->
+      <div class="border-t border-stone-200 dark:border-stone-700 pt-6 mb-6"></div>
+      
+      <!-- Navigation Menu -->
+      <nav class="flex flex-col gap-0">
+        <a href="/account" class="py-3 px-4 text-sm font-bold uppercase tracking-widest text-stone-900 dark:text-stone-50 border-b-2 border-stone-900 dark:border-stone-50 hover:opacity-60 transition-opacity">
+          Account Details
+        </a>
+        <a href="/listings/new" class="py-3 px-4 text-sm font-bold uppercase tracking-widest text-stone-600 dark:text-stone-400 border-b border-stone-200 dark:border-stone-700 hover:text-stone-900 dark:hover:text-stone-50 transition-colors">
+          Add Property
+        </a>
+        <a href="/bookings" class="py-3 px-4 text-sm font-bold uppercase tracking-widest text-stone-600 dark:text-stone-400 border-b border-stone-200 dark:border-stone-700 hover:text-stone-900 dark:hover:text-stone-50 transition-colors">
+          My Bookings
+        </a>
+        <a href="/logout" class="py-3 px-4 text-sm font-bold uppercase tracking-widest text-red-600 dark:text-red-400 border-b border-stone-200 dark:border-stone-700 hover:text-red-700 dark:hover:text-red-300 transition-colors">
+          Logout
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <section class="lg:col-span-4">
+      <!-- Page Header -->
+      <header class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-serif font-bold text-stone-900 dark:text-stone-50 mb-2">Account Settings</h1>
+        <p class="text-stone-600 dark:text-stone-400 font-light">Manage your personal information</p>
+      </header>
+
+      <!-- Account Form -->
+      <form action="/account" method="POST" class="space-y-12">
+        <!-- Personal Information Section -->
+        <section>
+          <h2 class="text-2xl font-serif font-bold text-stone-900 dark:text-stone-50 mb-8 pb-4 border-b border-stone-200 dark:border-stone-700">Personal Information</h2>
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- First Name -->
+            <div class="flex flex-col">
+              <label for="firstName" class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-3">First Name</label>
+              <input type="text" id="firstName" name="firstName" value="<%= userDetails.firstName %>" required class="bg-transparent border-0 border-b border-stone-300 dark:border-stone-600 px-0 py-2 focus:ring-0 text-lg font-light text-stone-900 dark:text-stone-50 transition-colors" />
+            </div>
+            <!-- Last Name -->
+            <div class="flex flex-col">
+              <label for="lastName" class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-3">Last Name</label>
+              <input type="text" id="lastName" name="lastName" value="<%= userDetails.lastName %>" required class="bg-transparent border-0 border-b border-stone-300 dark:border-stone-600 px-0 py-2 focus:ring-0 text-lg font-light text-stone-900 dark:text-stone-50 transition-colors" />
+            </div>
+            <!-- Email -->
+            <div class="flex flex-col">
+              <label for="email" class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-3">Email Address</label>
+              <input type="email" id="email" value="<%= userDetails.email %>" disabled class="bg-transparent border-0 border-b border-stone-300 dark:border-stone-600 px-0 py-2 focus:ring-0 text-lg font-light text-stone-500 dark:text-stone-500 transition-colors" />
+              <small class="text-xs text-stone-500 dark:text-stone-400 mt-2">Cannot be changed</small>
+            </div>
+            <!-- Phone Number -->
+            <div class="flex flex-col">
+              <label for="phoneNumber" class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-3">Phone Number</label>
+              <input type="tel" id="phoneNumber" name="phoneNumber" value="<%= userDetails.phoneNumber || '' %>" placeholder="+1 (555) 000-0000" class="bg-transparent border-0 border-b border-stone-300 dark:border-stone-600 px-0 py-2 focus:ring-0 text-lg font-light text-stone-900 dark:text-stone-50 transition-colors" />
+            </div>
+          </div>
+        </section>
+
+        <!-- Location Section -->
+        <section>
+          <h2 class="text-2xl font-serif font-bold text-stone-900 dark:text-stone-50 mb-8 pb-4 border-b border-stone-200 dark:border-stone-700">Location Information</h2>
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- Address -->
+            <div class="flex flex-col">
+              <label for="address" class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-3">Address</label>
+              <input type="text" id="address" name="address" value="<%= userDetails.address || '' %>" placeholder="Street address" class="bg-transparent border-0 border-b border-stone-300 dark:border-stone-600 px-0 py-2 focus:ring-0 text-lg font-light text-stone-900 dark:text-stone-50 transition-colors" />
+            </div>
+            <!-- City -->
+            <div class="flex flex-col">
+              <label for="city" class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-3">City</label>
+              <input type="text" id="city" name="city" value="<%= userDetails.city || '' %>" placeholder="Your city" class="bg-transparent border-0 border-b border-stone-300 dark:border-stone-600 px-0 py-2 focus:ring-0 text-lg font-light text-stone-900 dark:text-stone-50 transition-colors" />
+            </div>
+            <!-- Country -->
+            <div class="flex flex-col">
+              <label for="country" class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-3">Country</label>
+              <input type="text" id="country" name="country" value="<%= userDetails.country || '' %>" placeholder="Your country" class="bg-transparent border-0 border-b border-stone-300 dark:border-stone-600 px-0 py-2 focus:ring-0 text-lg font-light text-stone-900 dark:text-stone-50 transition-colors" />
+            </div>
+          </div>
+        </section>
+
+        <!-- About You Section -->
+        <section>
+          <h2 class="text-2xl font-serif font-bold text-stone-900 dark:text-stone-50 mb-8 pb-4 border-b border-stone-200 dark:border-stone-700">About You</h2>
+          <div class="flex flex-col">
+            <label for="bio" class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-3">Bio</label>
+            <textarea id="bio" name="bio" rows="4" placeholder="Tell us about yourself..." class="bg-transparent border-0 border-b border-stone-300 dark:border-stone-600 px-0 py-2 focus:ring-0 text-lg font-light text-stone-900 dark:text-stone-50 resize-none transition-colors"><%= userDetails.bio || '' %></textarea>
+            <small class="text-xs text-stone-500 dark:text-stone-400 mt-2">Maximum 500 characters</small>
+          </div>
+        </section>
+
+        <!-- Form Actions -->
+        <div class="pt-8 border-t border-stone-200 dark:border-stone-700 flex gap-4 justify-end">
+          <a href="/listings" class="px-8 py-3 text-xs uppercase tracking-widest font-bold border border-stone-300 dark:border-stone-600 text-stone-900 dark:text-stone-50 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors">
+            Cancel
+          </a>
+          <button type="submit" class="px-8 py-3 text-xs uppercase tracking-widest font-bold bg-stone-900 dark:bg-stone-50 text-stone-50 dark:text-stone-900 hover:bg-black dark:hover:bg-white transition-colors">
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </section>
+  </div>
+</main>
+
+<!-- Emoji Picker Modal -->
+<div class="modal fade" id="emojiPickerModal" tabindex="-1" aria-labelledby="emojiPickerLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+      <div class="modal-header border-b border-stone-200 dark:border-stone-700 px-6 py-4">
+        <h5 class="modal-title text-lg font-serif font-bold text-stone-900 dark:text-stone-50" id="emojiPickerLabel">Choose Your Profile Emoji</h5>
+        <button type="button" class="btn-close dark:invert" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-6">
+        <form action="/account/profile-emoji" method="POST" id="emojiForm">
+          <div class="mb-6">
+            <label class="text-xs uppercase tracking-widest font-bold text-stone-900 dark:text-stone-50 mb-4 block">Select an emoji:</label>
+            <div class="grid grid-cols-6 gap-3">
+              <% const emojis = ['👤', '😊', '😎', '🤓', '😍', '🥳', '🎭', '🌟', '👨', '👩', '🧑', '👶', '🦸', '🧙', '🧛', '🧚', '🦹', '🧝', '💼', '👔', '🎨', '🎸', '⚡', '🔥', '🌈', '💎', '🎯', '🚀']; %>
+              <% emojis.forEach(emoji => { %>
+                <button type="button" class="emoji-option aspect-square flex items-center justify-center text-2xl border border-stone-300 dark:border-stone-600 hover:border-stone-900 dark:hover:border-white hover:scale-110 transition-all bg-white dark:bg-stone-700" data-emoji="<%= emoji %>">
+                  <%= emoji %>
+                </button>
+              <% }); %>
+            </div>
+          </div>
+          
+          <input type="hidden" id="selectedEmoji" name="profileEmoji" value="<%= userDetails.profileEmoji || '👤' %>">
+          
+          <div class="flex gap-3 justify-end">
+            <button type="button" class="px-6 py-2 text-xs uppercase tracking-widest font-bold border border-stone-300 dark:border-stone-600 text-stone-900 dark:text-stone-50 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="submit" class="px-6 py-2 text-xs uppercase tracking-widest font-bold bg-stone-900 dark:bg-stone-50 text-stone-50 dark:text-stone-900 hover:bg-black dark:hover:bg-white transition-colors">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  input:focus, textarea:focus, select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: #0F172A !important;
+  }
+  
+  .dark input:focus,
+  .dark textarea:focus,
+  .dark select:focus {
+    border-color: #f8f8f7 !important;
+  }
+  
+  .emoji-option {
+    transition: all 0.3s ease;
+  }
+  
+  .emoji-option:hover {
+    transform: scale(1.15);
+  }
+  
+  .emoji-option.selected {
+    background-color: #e7e5e4;
+    border-color: #0F172A !important;
+  }
+  
+  .dark .emoji-option.selected {
+    background-color: #374151;
+    border-color: #f8f8f7 !important;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const emojiOptions = document.querySelectorAll('.emoji-option');
+    const selectedEmojiInput = document.getElementById('selectedEmoji');
+    const profileEmojiDisplay = document.getElementById('profileEmoji');
+
+    // Handle emoji button clicks
+    emojiOptions.forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const emoji = this.dataset.emoji;
+        selectedEmojiInput.value = emoji;
+        profileEmojiDisplay.textContent = emoji;
+        
+        // Update visual state
+        emojiOptions.forEach(btn => {
+          btn.classList.remove('selected');
+        });
+        this.classList.add('selected');
+      });
+    });
+
+    // Mark current emoji as selected when modal opens
+    const emojiModal = document.getElementById('emojiPickerModal');
+    if (emojiModal) {
+      emojiModal.addEventListener('show.bs.modal', function() {
+        const currentEmoji = selectedEmojiInput.value;
+        emojiOptions.forEach(btn => {
+          btn.classList.remove('selected');
+          if (btn.dataset.emoji === currentEmoji) {
+            btn.classList.add('selected');
+          }
+        });
+      });
+    }
+
+    // Form submission for emoji
+    const emojiForm = document.getElementById('emojiForm');
+    if (emojiForm) {
+      emojiForm.addEventListener('submit', function(e) {
+        if (!selectedEmojiInput.value) {
+          e.preventDefault();
+          alert('Please select an emoji');
+        }
+      });
+    }
+  });
+</script>

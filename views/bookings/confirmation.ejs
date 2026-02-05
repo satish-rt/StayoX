@@ -1,0 +1,416 @@
+<% layout("/layouts/boilerplate") %>
+
+<main class="max-w-4xl mx-auto px-4 md:px-10 py-16">
+
+  <section class="text-center mb-12">
+    <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mb-6">
+      <i class="fas fa-check text-green-600 text-4xl"></i>
+    </div>
+
+    <h1 class="text-3xl md:text-4xl font-serif font-bold text-stone-900 dark:text-stone-50 mb-3">
+      Your booking is confirmed
+    </h1>
+
+    <p class="text-md text-stone-600 dark:text-stone-400 max-w-lg mx-auto mb-6">
+      Your property booking has been confirmed. Thank you!
+    </p>
+  </section>
+
+  <!-- Minimal listing summary (no prices or IDs) --><% layout("/layouts/boilerplate") %>
+
+<main class="max-w-4xl mx-auto px-4 md:px-10 py-16">
+
+  <!-- Success Header -->
+  <section class="text-center mb-12">
+    <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mb-6">
+      <i class="fas fa-check text-green-600 text-4xl"></i>
+    </div>
+
+    <h1 class="text-3xl md:text-4xl font-header font-bold text-stone-900 dark:text-stone-50 mb-3">
+      Your booking is confirmed
+    </h1>
+
+    <p class="text-md text-stone-600 dark:text-stone-400 max-w-lg mx-auto">
+      Your property booking has been confirmed. Thank you!
+    </p>
+  </section>
+
+  <!-- Listing Summary -->
+  <section class="bg-white dark:bg-stone-900 rounded-2xl shadow-md p-6">
+    <div class="flex items-center gap-6">
+
+      <% if (booking.listing && booking.listing.image && booking.listing.image.url) { %>
+        <img
+          src="<%= booking.listing.image.url %>"
+          alt="<%= booking.listing.title %>"
+          class="rounded-xl h-28 w-40 object-cover flex-shrink-0"
+        />
+      <% } %>
+
+      <div>
+        <h2 class="text-xl font-bold mb-1">
+          <%= booking.listing.title %>
+        </h2>
+
+        <p class="text-sm text-stone-500">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          <%= booking.listing.location %>
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Actions -->
+  <div class="mt-10 flex flex-wrap gap-4 justify-center">
+    <a
+      href="/bookings"
+      class="px-6 py-3 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition"
+    >
+      View My Bookings
+    </a>
+
+    <a
+      href="/listings"
+      class="px-6 py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary/10 transition"
+    >
+      Browse More Stays
+    </a>
+  </div>
+
+</main>
+<% layout("/layouts/boilerplate") %>
+
+<main class="max-w-4xl mx-auto px-4 md:px-10 py-16">
+
+  <!-- Success Header -->
+  <section class="text-center mb-12">
+    <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mb-6">
+      <i class="fas fa-check text-green-600 text-4xl"></i>
+    </div>
+
+    <h1 class="text-3xl md:text-4xl font-header font-bold text-stone-900 dark:text-stone-50 mb-3">
+      Your booking is confirmed
+    </h1>
+
+    <p class="text-md text-stone-600 dark:text-stone-400 max-w-lg mx-auto">
+      Your property booking has been confirmed. Thank you!
+    </p>
+  </section>
+
+  <!-- Listing Summary -->
+  <section class="bg-white dark:bg-stone-900 rounded-2xl shadow-md p-6">
+    <div class="flex items-center gap-6">
+
+      <% if (booking.listing && booking.listing.image && booking.listing.image.url) { %>
+        <img
+          src="<%= booking.listing.image.url %>"
+          alt="<%= booking.listing.title %>"
+          class="rounded-xl h-28 w-40 object-cover flex-shrink-0"
+        />
+      <% } %>
+
+      <div>
+        <h2 class="text-xl font-bold mb-1">
+          <%= booking.listing.title %>
+        </h2>
+
+        <p class="text-sm text-stone-500">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          <%= booking.listing.location %>
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Actions -->
+  <div class="mt-10 flex flex-wrap gap-4 justify-center">
+    <a
+      href="/bookings"
+      class="px-6 py-3 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition"
+    >
+      View My Bookings
+    </a>
+
+    <a
+      href="/listings"
+      class="px-6 py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary/10 transition"
+    >
+      Browse More Stays
+    </a>
+  </div>
+
+</main>
+<% layout("/layouts/boilerplate") %>
+
+<main class="max-w-4xl mx-auto px-4 md:px-10 py-16">
+
+  <!-- Success Header -->
+  <section class="text-center mb-12">
+    <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mb-6">
+      <i class="fas fa-check text-green-600 text-4xl"></i>
+    </div>
+
+    <h1 class="text-3xl md:text-4xl font-header font-bold text-stone-900 dark:text-stone-50 mb-3">
+      Your booking is confirmed
+    </h1>
+
+    <p class="text-md text-stone-600 dark:text-stone-400 max-w-lg mx-auto">
+      Your property booking has been confirmed. Thank you!
+    </p>
+  </section>
+
+  <!-- Listing Summary -->
+  <section class="bg-white dark:bg-stone-900 rounded-2xl shadow-md p-6">
+    <div class="flex items-center gap-6">
+
+      <% if (booking.listing && booking.listing.image && booking.listing.image.url) { %>
+        <img
+          src="<%= booking.listing.image.url %>"
+          alt="<%= booking.listing.title %>"
+          class="rounded-xl h-28 w-40 object-cover flex-shrink-0"
+        />
+      <% } %>
+
+      <div>
+        <h2 class="text-xl font-bold mb-1">
+          <%= booking.listing.title %>
+        </h2>
+
+        <p class="text-sm text-stone-500">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          <%= booking.listing.location %>
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Actions -->
+  <div class="mt-10 flex flex-wrap gap-4 justify-center">
+    <a
+      href="/bookings"
+      class="px-6 py-3 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition"
+    >
+      View My Bookings
+    </a>
+
+    <a
+      href="/listings"
+      class="px-6 py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary/10 transition"
+    >
+      Browse More Stays
+    </a>
+  </div>
+
+</main>
+<% layout("/layouts/boilerplate") %>
+
+<main class="max-w-4xl mx-auto px-4 md:px-10 py-16">
+
+  <!-- Success Header -->
+  <section class="text-center mb-12">
+    <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mb-6">
+      <i class="fas fa-check text-green-600 text-4xl"></i>
+    </div>
+
+    <h1 class="text-3xl md:text-4xl font-header font-bold text-stone-900 dark:text-stone-50 mb-3">
+      Your booking is confirmed
+    </h1>
+
+    <p class="text-md text-stone-600 dark:text-stone-400 max-w-lg mx-auto">
+      Your property booking has been confirmed. Thank you!
+    </p>
+  </section>
+
+  <!-- Listing Summary -->
+  <section class="bg-white dark:bg-stone-900 rounded-2xl shadow-md p-6">
+    <div class="flex items-center gap-6">
+
+      <% if (booking.listing && booking.listing.image && booking.listing.image.url) { %>
+        <img
+          src="<%= booking.listing.image.url %>"
+          alt="<%= booking.listing.title %>"
+          class="rounded-xl h-28 w-40 object-cover flex-shrink-0"
+        />
+      <% } %>
+
+      <div>
+        <h2 class="text-xl font-bold mb-1">
+          <%= booking.listing.title %>
+        </h2>
+
+        <p class="text-sm text-stone-500">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          <%= booking.listing.location %>
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Actions -->
+  <div class="mt-10 flex flex-wrap gap-4 justify-center">
+    <a
+      href="/bookings"
+      class="px-6 py-3 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition"
+    >
+      View My Bookings
+    </a>
+
+    <a
+      href="/listings"
+      class="px-6 py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary/10 transition"
+    >
+      Browse More Stays
+    </a>
+  </div>
+
+</main>
+<% layout("/layouts/boilerplate") %>
+
+<main class="max-w-4xl mx-auto px-4 md:px-10 py-16">
+
+  <!-- Success Header -->
+  <section class="text-center mb-12">
+    <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mb-6">
+      <i class="fas fa-check text-green-600 text-4xl"></i>
+    </div>
+
+    <h1 class="text-3xl md:text-4xl font-header font-bold text-stone-900 dark:text-stone-50 mb-3">
+      Your booking is confirmed
+    </h1>
+
+    <p class="text-md text-stone-600 dark:text-stone-400 max-w-lg mx-auto">
+      Your property booking has been confirmed. Thank you!
+    </p>
+  </section>
+
+  <!-- Listing Summary -->
+  <section class="bg-white dark:bg-stone-900 rounded-2xl shadow-md p-6">
+    <div class="flex items-center gap-6">
+
+      <% if (booking.listing && booking.listing.image && booking.listing.image.url) { %>
+        <img
+          src="<%= booking.listing.image.url %>"
+          alt="<%= booking.listing.title %>"
+          class="rounded-xl h-28 w-40 object-cover flex-shrink-0"
+        />
+      <% } %>
+
+      <div>
+        <h2 class="text-xl font-bold mb-1">
+          <%= booking.listing.title %>
+        </h2>
+
+        <p class="text-sm text-stone-500">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          <%= booking.listing.location %>
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Actions -->
+  <div class="mt-10 flex flex-wrap gap-4 justify-center">
+    <a
+      href="/bookings"
+      class="px-6 py-3 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition"
+    >
+      View My Bookings
+    </a>
+
+    <a
+      href="/listings"
+      class="px-6 py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary/10 transition"
+    >
+      Browse More Stays
+    </a>
+  </div>
+
+</main>
+<% layout("/layouts/boilerplate") %>
+
+<main class="max-w-4xl mx-auto px-4 md:px-10 py-16">
+
+  <!-- Success Header -->
+  <section class="text-center mb-12">
+    <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mb-6">
+      <i class="fas fa-check text-green-600 text-4xl"></i>
+    </div>
+
+    <h1 class="text-3xl md:text-4xl font-header font-bold text-stone-900 dark:text-stone-50 mb-3">
+      Your booking is confirmed
+    </h1>
+
+    <p class="text-md text-stone-600 dark:text-stone-400 max-w-lg mx-auto">
+      Your property booking has been confirmed. Thank you!
+    </p>
+  </section>
+
+  <!-- Listing Summary -->
+  <section class="bg-white dark:bg-stone-900 rounded-2xl shadow-md p-6">
+    <div class="flex items-center gap-6">
+
+      <% if (booking.listing && booking.listing.image && booking.listing.image.url) { %>
+        <img
+          src="<%= booking.listing.image.url %>"
+          alt="<%= booking.listing.title %>"
+          class="rounded-xl h-28 w-40 object-cover flex-shrink-0"
+        />
+      <% } %>
+
+      <div>
+        <h2 class="text-xl font-bold mb-1">
+          <%= booking.listing.title %>
+        </h2>
+
+        <p class="text-sm text-stone-500">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          <%= booking.listing.location %>
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Actions -->
+  <div class="mt-10 flex flex-wrap gap-4 justify-center">
+    <a
+      href="/bookings"
+      class="px-6 py-3 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition"
+    >
+      View My Bookings
+    </a>
+
+    <a
+      href="/listings"
+      class="px-6 py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary/10 transition"
+    >
+      Browse More Stays
+    </a>
+  </div>
+
+</main>
+
+  <section class="bg-white dark:bg-stone-900 rounded-2xl shadow-md p-6">
+    <div class="flex items-center gap-6">
+      <% if (booking.listing && booking.listing.i mage && booking.listing.image.url) { %>
+        <img src="<%= booking.listing.image.url %>" alt="<%= booking.listing.title %>" class="rounded-lg h-28 w-40 object-cover">
+      <% } %>
+
+      <div>
+        <h2 class="text-xl font-bold mb-1"><%= booking.listing.title %></h2>
+        <p class="text-sm text-stone-500"><i class="fas fa-map-marker-alt"></i> <%= booking.listing.location %></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="mt-8 flex gap-4">
+    <a href="/bookings" class="btn btn-primary py-3 rounded-xl font-bold">View My Bookings</a>
+    <a href="/listings" class="btn btn-outline-secondary py-3 rounded-xl font-bold">Browse More Stays</a>
+  </div>
+
+</main>

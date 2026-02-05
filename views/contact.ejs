@@ -1,0 +1,246 @@
+<% layout("/layouts/boilerplate") %>
+
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-6 py-20 text-center">
+  <h1
+    class="font-display text-6xl md:text-7xl lg:text-8xl font-light leading-tight tracking-tighter italic text-slate-900 dark:text-white"
+  >
+    Connect with <br />Our Team
+  </h1>
+  <p
+    class="mt-8 text-sm tracking-widest uppercase font-light max-w-lg mx-auto opacity-70 text-slate-600 dark:text-slate-400"
+  >
+    Questions about rentals, bookings, or partnerships? We're here to help.
+  </p>
+</section>
+
+<!-- Main Grid -->
+<section
+  class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start border-t border-slate-200 dark:border-slate-700 py-20"
+>
+  <!-- Contact Info (Left Column) -->
+  <div class="lg:col-span-5 space-y-16">
+    <div>
+      <h3
+        class="font-display text-2xl mb-8 italic text-slate-900 dark:text-white"
+      >
+        General Inquiries
+      </h3>
+      <div class="space-y-6">
+        <div class="border-t border-slate-200 dark:border-slate-700 py-4">
+          <p
+            class="text-[10px] uppercase tracking-widest mb-1 opacity-50 text-slate-600 dark:text-slate-400"
+          >
+            Email
+          </p>
+          <p class="text-lg text-slate-900 dark:text-white">
+            support@stayox.com
+          </p>
+        </div>
+        <div class="border-t border-slate-200 dark:border-slate-700 py-4">
+          <p
+            class="text-[10px] uppercase tracking-widest mb-1 opacity-50 text-slate-600 dark:text-slate-400"
+          >
+            Phone
+          </p>
+          <p class="text-lg text-slate-900 dark:text-white">
+            +1 (555) 123-4567
+          </p>
+        </div>
+        <div class="border-t border-slate-200 dark:border-slate-700 py-4">
+          <p
+            class="text-[10px] uppercase tracking-widest mb-1 opacity-50 text-slate-600 dark:text-slate-400"
+          >
+            Hours
+          </p>
+          <p class="text-lg text-slate-900 dark:text-white">
+            Mon - Fri: 9AM - 6PM PST
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3
+        class="font-display text-2xl mb-8 italic text-slate-900 dark:text-white"
+      >
+        Our Office
+      </h3>
+      <div class="space-y-6">
+        <div class="border-t border-slate-200 dark:border-slate-700 py-4">
+          <p
+            class="text-[10px] uppercase tracking-widest mb-1 opacity-50 text-slate-600 dark:text-slate-400"
+          >
+            Address
+          </p>
+          <p class="text-lg text-slate-900 dark:text-white">
+            123 Main Street, Suite 200<br />San Francisco, CA 94105
+          </p>
+        </div>
+        <div class="border-t border-slate-200 dark:border-slate-700 py-4">
+          <p
+            class="text-[10px] uppercase tracking-widest mb-1 opacity-50 text-slate-600 dark:text-slate-400"
+          >
+            Response Time
+          </p>
+          <p class="text-lg italic text-slate-900 dark:text-white">
+            Within 24 Hours
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inquiry Form (Right Column) -->
+  <div
+    class="lg:col-span-7 bg-slate-50 dark:bg-slate-800/50 p-8 lg:p-12 rounded-lg"
+  >
+    <h3
+      class="font-display text-3xl mb-12 italic text-slate-900 dark:text-white"
+    >
+      Send a Message
+    </h3>
+    <form action="/contact" method="POST" class="space-y-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div class="flex flex-col">
+          <label
+            class="text-[10px] uppercase tracking-[0.2em] mb-2 font-bold text-slate-900 dark:text-white"
+            >Full Name</label
+          >
+          <input
+            name="name"
+            class="bg-transparent border-0 border-b border-slate-300 dark:border-slate-600 py-4 focus:outline-none focus:ring-0 focus:border-slate-900 dark:focus:border-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
+            placeholder="Your name"
+            type="text"
+            required
+          />
+        </div>
+        <div class="flex flex-col">
+          <label
+            class="text-[10px] uppercase tracking-[0.2em] mb-2 font-bold text-slate-900 dark:text-white"
+            >Email Address</label
+          >
+          <input
+            name="email"
+            class="bg-transparent border-0 border-b border-slate-300 dark:border-slate-600 py-4 focus:outline-none focus:ring-0 focus:border-slate-900 dark:focus:border-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
+            placeholder="your@email.com"
+            type="email"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <label
+          class="text-[10px] uppercase tracking-[0.2em] mb-2 font-bold text-slate-900 dark:text-white"
+          >Subject</label
+        >
+        <input
+          name="subject"
+          class="bg-transparent border-0 border-b border-slate-300 dark:border-slate-600 py-4 focus:outline-none focus:ring-0 focus:border-slate-900 dark:focus:border-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
+          placeholder="How can we help?"
+          type="text"
+          required
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label
+          class="text-[10px] uppercase tracking-[0.2em] mb-2 font-bold text-slate-900 dark:text-white"
+          >Message</label
+        >
+        <textarea
+          name="message"
+          class="bg-transparent border-0 border-b border-slate-300 dark:border-slate-600 py-4 focus:outline-none focus:ring-0 focus:border-slate-900 dark:focus:border-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white resize-none"
+          placeholder="Tell us more..."
+          rows="4"
+          required
+        ></textarea>
+      </div>
+
+      <div class="pt-6">
+        <button
+          class="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-4 text-xs font-bold tracking-[0.4em] uppercase hover:bg-slate-800 dark:hover:bg-slate-100 transition-all rounded-none"
+          type="submit"
+        >
+          Submit Inquiry
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="max-w-5xl mx-auto px-6 mt-32 mb-20">
+  <h2
+    class="font-display text-4xl mb-16 text-center italic text-slate-900 dark:text-white"
+  >
+    Frequently Asked Questions
+  </h2>
+  <div class="space-y-0">
+    <div
+      class="border-t border-slate-200 dark:border-slate-700 py-8 grid md:grid-cols-3 gap-8 items-start"
+    >
+      <h4
+        class="text-xs font-bold tracking-[0.2em] uppercase text-slate-900 dark:text-white"
+      >
+        Booking Process
+      </h4>
+      <p
+        class="md:col-span-2 text-sm leading-relaxed opacity-80 text-slate-600 dark:text-slate-400"
+      >
+        Simply browse our listings, select your dates, and complete payment.
+        You'll receive confirmation within minutes with all the details for your
+        stay.
+      </p>
+    </div>
+
+    <div
+      class="border-t border-slate-200 dark:border-slate-700 py-8 grid md:grid-cols-3 gap-8 items-start"
+    >
+      <h4
+        class="text-xs font-bold tracking-[0.2em] uppercase text-slate-900 dark:text-white"
+      >
+        Payment Methods
+      </h4>
+      <p
+        class="md:col-span-2 text-sm leading-relaxed opacity-80 text-slate-600 dark:text-slate-400"
+      >
+        We accept all major credit cards, debit cards, and digital wallets
+        through our secure Razorpay integration for safe transactions.
+      </p>
+    </div>
+
+    <div
+      class="border-t border-slate-200 dark:border-slate-700 py-8 grid md:grid-cols-3 gap-8 items-start"
+    >
+      <h4
+        class="text-xs font-bold tracking-[0.2em] uppercase text-slate-900 dark:text-white"
+      >
+        Cancellations
+      </h4>
+      <p
+        class="md:col-span-2 text-sm leading-relaxed opacity-80 text-slate-600 dark:text-slate-400"
+      >
+        Completed bookings can be cancelled within 24 hours for a full refund.
+        Contact our support team for assistance.
+      </p>
+    </div>
+
+    <div
+      class="border-t border-slate-200 dark:border-slate-700 py-8 grid md:grid-cols-3 gap-8 items-start border-b"
+    >
+      <h4
+        class="text-xs font-bold tracking-[0.2em] uppercase text-slate-900 dark:text-white"
+      >
+        Host Support
+      </h4>
+      <p
+        class="md:col-span-2 text-sm leading-relaxed opacity-80 text-slate-600 dark:text-slate-400"
+      >
+        Our team provides 24/7 support to help you list your property and manage
+        bookings. Get started by creating a host account.
+      </p>
+    </div>
+  </div>
+</section>

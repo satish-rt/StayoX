@@ -1,15 +1,374 @@
-<footer>
-    <div class="f-info">
-<div class="f-info-socials">
-    <i class="fa-brands fa-facebook"></i>
-    <i class="fa-brands fa-square-instagram"></i>
-    <i class="fa-brands fa-linkedin"></i>
-</div>
-<div class="f-info-brand">&copy; Wanderlust Private Limited</div>
-<div class="f-info-links">
-    <a href="/privacy">Privacy </a>
-    <a href="/terms">Terms</a>
-</div>
+<footer class="footer-modern bg-dark text-white">
+  <!-- Main Footer Content -->
+  <div class="container py-5">
+    <div class="row g-4">
+      <!-- Company Info Section -->
+      <div class="col-lg-3 col-md-6">
+        <div class="footer-brand mb-4">
+          <a href="/" class="d-flex align-items-center text-decoration-none mb-3">
+            <div class="brand-icon">
+              <i class="fas fa-home"></i>
+            </div>
+            <span class="fw-bold brand-text">Stayo<span class="text-danger">X</span></span>
+          </a>
+          <p class="text-light opacity-75">Discover your perfect getaway with our curated collection of premium properties worldwide. Experience comfort, convenience, and unforgettable memories.</p>
+        </div>
 
+        <!-- Social Links -->
+        <div class="social-links-footer">
+          <p class="small text-uppercase fw-bold text-danger mb-3">Follow Us</p>
+          <div class="d-flex gap-3">
+            <a href="#" class="social-icon-footer" title="Facebook" aria-label="Follow us on Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-icon-footer" title="Twitter" aria-label="Follow us on Twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-icon-footer" title="Instagram" aria-label="Follow us on Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="social-icon-footer" title="LinkedIn" aria-label="Follow us on LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-lg-2 col-md-6">
+        <h5 class="fw-bold mb-4 text-white position-relative pb-2">
+          <span>Explore</span>
+          <div class="footer-underline"></div>
+        </h5>
+        <ul class="list-unstyled footer-links">
+          <li class="mb-3">
+            <a href="/listings" class="text-light opacity-75 text-decoration-none transition-link">
+              <i class="fas fa-arrow-right me-2 text-danger"></i>Properties
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="/about" class="text-light opacity-75 text-decoration-none transition-link">
+              <i class="fas fa-arrow-right me-2 text-danger"></i>About Us
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="/contact" class="text-light opacity-75 text-decoration-none transition-link">
+              <i class="fas fa-arrow-right me-2 text-danger"></i>Contact
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="/listings/new" class="text-light opacity-75 text-decoration-none transition-link">
+              <i class="fas fa-arrow-right me-2 text-danger"></i>List Property
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Help & Support -->
+      <div class="col-lg-2 col-md-6">
+        <h5 class="fw-bold mb-4 text-white position-relative pb-2">
+          <span>Support</span>
+          <div class="footer-underline"></div>
+        </h5>
+        <ul class="list-unstyled footer-links">
+          <li class="mb-3">
+            <a href="/faq" class="text-light opacity-75 text-decoration-none transition-link">
+              <i class="fas fa-arrow-right me-2 text-danger"></i>FAQ
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="/terms" class="text-light opacity-75 text-decoration-none transition-link">
+              <i class="fas fa-arrow-right me-2 text-danger"></i>Terms of Service
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="/privacy" class="text-light opacity-75 text-decoration-none transition-link">
+              <i class="fas fa-arrow-right me-2 text-danger"></i>Privacy Policy
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="/help-center" class="text-light opacity-75 text-decoration-none transition-link">
+              <i class="fas fa-arrow-right me-2 text-danger"></i>Help Center
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Newsletter Subscription -->
+      <div class="col-lg-5 col-md-6">
+        <h5 class="fw-bold mb-4 text-white position-relative pb-2">
+          <span>Stay Updated</span>
+          <div class="footer-underline"></div>
+        </h5>
+        <p class="text-light opacity-75 mb-3">Get exclusive deals, travel tips, and new listings delivered to your inbox.</p>
+        <div class="newsletter-form-footer">
+          <form class="d-flex flex-column gap-2">
+            <div class="input-group input-group-lg">
+              <i class="fas fa-envelope input-group-icon"></i>
+              <input 
+                type="email" 
+                class="form-control newsletter-input" 
+                placeholder="Enter your email address"
+                required
+              >
+              <button type="submit" class="btn btn-danger btn-newsletter" aria-label="Subscribe to newsletter">
+                <i class="fas fa-paper-plane me-2"></i>Subscribe
+              </button>
+            </div>
+            <small class="text-light opacity-50">We respect your privacy. Unsubscribe anytime.</small>
+          </form>
+        </div>
+      </div>
     </div>
+
+    <!-- Divider -->
+    <hr class="my-5 opacity-25">
+
+    <!-- Footer Bottom -->
+    <div class="row align-items-center py-3">
+      <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+        <p class="mb-0 text-light opacity-75 small">
+          <i class="fas fa-copyright me-2"></i>
+          <span id="year"></span> StayoX. All rights reserved.
+        </p>
+      </div>
+      <div class="col-md-6 text-center text-md-end">
+        <div class="payment-methods-footer">
+          <span class="text-light opacity-75 small me-3">Secure Payments:</span>
+          <div class="d-inline-flex gap-2">
+            <div class="payment-badge" title="Visa">
+              <i class="fab fa-cc-visa"></i>
+            </div>
+            <div class="payment-badge" title="Mastercard">
+              <i class="fab fa-cc-mastercard"></i>
+            </div>
+            <div class="payment-badge" title="PayPal">
+              <i class="fab fa-cc-paypal"></i>
+            </div>
+            <div class="payment-badge" title="American Express">
+              <i class="fab fa-cc-amex"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Styles -->
+  <style>
+    .footer-modern {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      margin-top: 5rem;
+      border-top: 3px solid var(--primary-color);
+      color: white;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-brand a {
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .footer-brand a:hover {
+      transform: translateX(5px);
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-right: 10px;
+      color: white;
+    }
+
+    .brand-text {
+      font-size: 1.4rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* Footer Links Styling */
+    .footer-links a {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .footer-links a i {
+      transition: all 0.3s ease;
+      opacity: 0;
+      margin-right: 0 !important;
+    }
+
+    .footer-links a:hover {
+      color: white !important;
+      opacity: 1 !important;
+      padding-left: 10px;
+    }
+
+    .footer-links a:hover i {
+      opacity: 1;
+      margin-right: 8px !important;
+    }
+
+    .transition-link {
+      position: relative;
+    }
+
+    .transition-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+
+    .footer-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Footer Section Headers */
+    .footer-underline {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 2px;
+    }
+
+    /* Social Links Footer */
+    .social-icon-footer {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .social-icon-footer:hover {
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      transform: translateY(-5px);
+      color: white;
+    }
+
+    /* Newsletter Form */
+    .newsletter-form-footer {
+      margin-top: 1rem;
+    }
+
+    .input-group-icon {
+      position: absolute;
+      left: 15px;
+      color: var(--primary-color);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .newsletter-input {
+      padding-left: 45px !important;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .newsletter-input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .newsletter-input:focus {
+      background-color: rgba(255, 255, 255, 0.15);
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.2rem rgba(255, 90, 95, 0.25);
+      color: white;
+    }
+
+    .input-group-lg .newsletter-input {
+      height: 48px;
+      font-size: 0.95rem;
+    }
+
+    .btn-newsletter {
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      border: none;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .btn-newsletter:hover {
+      box-shadow: 0 4px 12px rgba(255, 90, 95, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .btn-newsletter:active {
+      transform: translateY(0);
+    }
+
+    /* Payment Methods */
+    .payment-methods-footer {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .payment-badge {
+      width: 35px;
+      height: 35px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .payment-badge:hover {
+      background-color: var(--primary-color);
+      transform: scale(1.1);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .footer-modern {
+        margin-top: 3rem;
+      }
+
+      .payment-methods-footer {
+        justify-content: center;
+        margin-top: 1rem;
+      }
+
+      .footer-underline {
+        width: 30px;
+      }
+    }
+  </style>
+
+  <script>
+    // Set current year in copyright
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </footer>

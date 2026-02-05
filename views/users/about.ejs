@@ -1,0 +1,165 @@
+<% layout("/layouts/boilerplate") %>
+
+<main class="max-w-7xl mx-auto px-6 md:px-12 py-20">
+  <!-- Profile Header -->
+  <section class="text-center mb-20">
+    <!-- Profile Emoji -->
+    <div class="flex justify-center mb-8">
+      <div class="w-48 h-48 border-4 border-stone-300 dark:border-stone-600 flex items-center justify-center text-7xl bg-stone-100 dark:bg-stone-800 rounded-none">
+        <%= userProfile.profileEmoji || '👤' %>
+      </div>
+    </div>
+    
+    <div class="mb-8">
+      <h1 class="text-5xl md:text-6xl font-serif font-bold text-stone-900 dark:text-stone-50 mb-3">
+        <%= userProfile.firstName %> <%= userProfile.lastName %>
+      </h1>
+      <p class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400">
+        @<%= userProfile.username %>
+      </p>
+    </div>
+    
+    <% if (currUser && currUser._id.equals(userProfile._id)) { %>
+      <a href="/account" class="inline-block bg-stone-900 dark:bg-stone-50 text-stone-50 dark:text-stone-900 px-8 py-3 text-xs uppercase tracking-widest font-bold hover:bg-black dark:hover:bg-white transition-colors">
+        Edit Profile
+      </a>
+    <% } %>
+  </section>
+
+  <!-- Contact Information Section -->
+  <section class="mb-20 pb-12 border-b border-stone-200 dark:border-stone-700">
+    <h2 class="text-2xl font-serif font-bold text-stone-900 dark:text-stone-50 mb-8 pb-4 border-b border-stone-200 dark:border-stone-700">
+      Contact Information
+    </h2>
+    <div class="mt-8 space-y-6 max-w-2xl">
+      <% if (currUser) { %>
+        <div class="pb-6 border-b border-stone-200 dark:border-stone-700">
+          <p class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-2">Email</p>
+          <p class="text-lg text-stone-900 dark:text-stone-50"><%= userProfile.email %></p>
+        </div>
+        
+        <% if (userProfile.phoneNumber) { %>
+          <div class="pb-6 border-b border-stone-200 dark:border-stone-700">
+            <p class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-2">Phone</p>
+            <p class="text-lg text-stone-900 dark:text-stone-50"><%= userProfile.phoneNumber %></p>
+          </div>
+        <% } %>
+        
+        <% if (userProfile.address || userProfile.city || userProfile.country) { %>
+          <div>
+            <p class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 mb-2">Location</p>
+            <p class="text-lg text-stone-900 dark:text-stone-50">
+              <%= userProfile.address ? userProfile.address + ', ' : '' %>
+              <%= userProfile.city ? userProfile.city + ', ' : '' %>
+              <%= userProfile.country ? userProfile.country : '' %>
+            </p>
+          </div>
+        <% } %>
+      <% } else { %>
+        <p class="text-stone-600 dark:text-stone-400 font-light">
+          Please <a href="/login" class="text-stone-900 dark:text-stone-50 font-bold hover:underline">login</a> to view contact details.
+        </p>
+      <% } %>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="mb-20 pb-12 border-b border-stone-200 dark:border-stone-700">
+    <h2 class="text-2xl font-serif font-bold text-stone-900 dark:text-stone-50 mb-8 pb-4 border-b border-stone-200 dark:border-stone-700">
+      About
+    </h2>
+    <div class="mt-8 max-w-2xl">
+      <% if (userProfile.bio) { %>
+        <p class="text-lg text-stone-600 dark:text-stone-400 leading-relaxed font-light">
+          <%= userProfile.bio %>
+        </p>
+      <% } else { %>
+        <p class="text-stone-600 dark:text-stone-400 font-light">
+          No bio information available.
+        </p>
+      <% } %>
+    </div>
+  </section>
+
+  <!-- Properties Section -->
+  <section class="py-12">
+    <div class="mb-12 pb-4 border-b border-stone-200 dark:border-stone-700">
+      <div class="flex items-center gap-4">
+        <h2 class="text-2xl font-serif font-bold text-stone-900 dark:text-stone-50">
+          Properties Listed
+        </h2>
+        <span class="text-xs uppercase tracking-widest font-bold text-stone-600 dark:text-stone-400 bg-stone-100 dark:bg-stone-800 px-3 py-1">
+          <%= listings.length %>
+        </span>
+      </div>
+    </div>
+    
+    <% if (listings.length > 0) { %>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <% for(let listing of listings) { %>
+          <article class="border border-stone-200 dark:border-stone-700 overflow-hidden hover:shadow-lg dark:hover:shadow-lg dark:shadow-black/20 transition-shadow bg-white dark:bg-stone-900">
+            <!-- Image -->
+            <div class="relative h-56 overflow-hidden bg-stone-100 dark:bg-stone-800">
+              <img 
+                src="<%= listing.image.url %>" 
+                alt="<%= listing.title %>" 
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              />
+              <% if (currUser && currUser._id.equals(userProfile._id)) { %>
+                <a 
+                  href="/listings/<%= listing._id %>/edit" 
+                  class="absolute top-4 right-4 bg-stone-900 dark:bg-stone-50 text-stone-50 dark:text-stone-900 px-3 py-2 text-xs uppercase tracking-widest font-bold hover:bg-black dark:hover:bg-white transition-colors"
+                >
+                  Edit
+                </a>
+              <% } %>
+            </div>
+            
+            <!-- Content -->
+            <div class="p-6">
+              <h3 class="text-lg font-serif font-bold text-stone-900 dark:text-stone-50 mb-2 line-clamp-2">
+                <%= listing.title %>
+              </h3>
+              <p class="text-sm text-stone-600 dark:text-stone-400 mb-4">
+                <%= listing.location %><% if(listing.country) { %>, <%= listing.country %><% } %>
+              </p>
+              <p class="text-xl font-serif font-bold text-stone-900 dark:text-stone-50 mb-6">
+                ₹<%= listing.price %><span class="text-sm text-stone-600 dark:text-stone-400 font-normal">/night</span>
+              </p>
+              <a 
+                href="/listings/<%= listing._id %>" 
+                class="block bg-stone-900 dark:bg-stone-50 text-stone-50 dark:text-stone-900 px-6 py-3 text-xs uppercase tracking-widest font-bold hover:bg-black dark:hover:bg-white transition-colors text-center"
+              >
+                View Details
+              </a>
+            </div>
+          </article>
+        <% } %>
+      </div>
+    <% } else { %>
+      <div class="text-center py-20">
+        <p class="text-stone-600 dark:text-stone-400 font-light mb-6 text-lg">
+          No properties listed yet.
+        </p>
+        <% if (currUser && currUser._id.equals(userProfile._id)) { %>
+          <a 
+            href="/listings/new" 
+            class="inline-block bg-stone-900 dark:bg-stone-50 text-stone-50 dark:text-stone-900 px-8 py-3 text-xs uppercase tracking-widest font-bold hover:bg-black dark:hover:bg-white transition-colors"
+          >
+            Add Your First Property
+          </a>
+        <% } %>
+      </div>
+    <% } %>
+  </section>
+</main>
+
+<style>
+  article {
+    background: white;
+  }
+  
+  .dark article {
+    background: #111827;
+  }
+</style>

@@ -1,0 +1,302 @@
+<% layout("/layouts/boilerplate") %>
+
+<main class="max-w-7xl mx-auto w-full px-6 md:px-12 py-12">
+  <!-- Breadcrumbs -->
+  <nav class="flex flex-wrap gap-2 py-4 mb-8">
+    <a
+      class="text-slate-500 text-sm font-medium tracking-wide uppercase hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+      href="/"
+      >Home</a
+    >
+    <span class="text-slate-500 text-sm">/</span>
+    <span
+      class="text-slate-900 dark:text-white text-sm font-bold tracking-wide uppercase"
+      >Help Center</span
+    >
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="text-center mb-20">
+    <h1
+      class="font-header text-5xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6"
+    >
+      How can we assist you?
+    </h1>
+
+    <!-- Minimalist Search -->
+    <div class="max-w-2xl mx-auto">
+      <label
+        class="flex items-center border-b border-blue-600/30 dark:border-white/30 py-4 focus-within:border-blue-600 dark:focus-within:border-white transition-colors hover:border-blue-600/50"
+      >
+        <span
+          class="material-symbols-outlined text-slate-400 dark:text-slate-500 mr-4"
+          >search</span
+        >
+        <input
+          class="w-full bg-transparent border-none focus:ring-0 text-lg placeholder:text-slate-400 dark:placeholder:text-slate-500"
+          placeholder="Search for articles, policies, or FAQs..."
+          type="text"
+          id="helpSearch"
+        />
+      </label>
+    </div>
+  </section>
+
+  <!-- Category Grid -->
+  <section class="mb-24">
+    <h2
+      class="text-slate-900 dark:text-white text-sm font-bold tracking-[0.2em] uppercase mb-12 border-b border-slate-200 dark:border-slate-700 pb-4"
+    >
+      Help Categories
+    </h2>
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-16"
+    >
+      <!-- Getting Started -->
+      <div class="flex flex-col gap-6">
+        <h3
+          class="text-2xl font-header font-semibold border-b border-blue-600 pb-2 text-slate-900 dark:text-white"
+        >
+          Getting Started
+        </h3>
+        <div class="flex flex-col gap-3">
+          <a
+            class="text-base text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#"
+            >Creating an Account</a
+          >
+          <a
+            class="text-base text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#"
+            >Profile Setup</a
+          >
+          <a
+            class="text-base text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#"
+            >Platform Basics</a
+          >
+          <a
+            class="text-base text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-bold mt-2 flex items-center gap-1 transition-colors"
+            href="#"
+            >View all
+            <span class="material-symbols-outlined text-sm"
+              >arrow_forward</span
+            ></a
+          >
+        </div>
+      </div>
+
+      <!-- Booking & Reservations -->
+      <div class="flex flex-col gap-6">
+        <h3
+          class="text-2xl font-header font-semibold border-b border-blue-600 pb-2 text-slate-900 dark:text-white"
+        >
+          Booking & Reservations
+        </h3>
+        <div class="flex flex-col gap-3">
+          <a
+            class="text-base text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#"
+            >How to Book</a
+          >
+          <a
+            class="text-base text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#"
+            >Modifying Reservations</a
+          >
+          <a
+            class="text-base text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#"
+            >Calendar Management</a
+          >
+          <a
+            class="text-base text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-bold mt-2 flex items-center gap-1 transition-colors"
+            href="#"
+            >View all
+            <span class="material-symbols-outlined text-sm"
+              >arrow_forward</span
+            ></a
+          >
+        </div>
+      </div>
+
+      <!-- Payments & Billing -->
+      <div class="flex flex-col gap-6">
+        <h3
+          class="text-2xl font-header font-semibold border-b border-blue-600 pb-2 text-slate-900 dark:text-white"
+        >
+          Payments & Billing
+        </h3>
+        <div class="flex flex-col gap-3">
+          <a
+            class="text-base text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#"
+            >Payment Methods</a
+          >
+          <a
+            class="text-base text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#"
+            >Invoices & Receipts</a
+          >
+          <a
+            class="text-base text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#"
+            >Refunds & Cancellations</a
+          >
+          <a
+            class="text-base text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-bold mt-2 flex items-center gap-1 transition-colors"
+            href="#"
+            >View all
+            <span class="material-symbols-outlined text-sm"
+              >arrow_forward</span
+            ></a
+          >
+        </div>
+      </div>
+
+      <!-- Account & Profile -->
+      <div class="flex flex-col gap-6">
+        <h3
+          class="text-2xl font-header font-semibold border-b border-blue-600 pb-2 text-slate-900 dark:text-white"
+        >
+          Account & Profile
+        </h3>
+        <div class="flex flex-col gap-3">
+          <a
+            class="text-base text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#"
+            >Security Settings</a
+          >
+          <a
+            class="text-base text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#"
+            >Privacy Controls</a
+          >
+          <a
+            class="text-base text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#"
+            >Account Recovery</a
+          >
+          <a
+            class="text-base text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-bold mt-2 flex items-center gap-1 transition-colors"
+            href="#"
+            >View all
+            <span class="material-symbols-outlined text-sm"
+              >arrow_forward</span
+            ></a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Articles List -->
+  <section class="mb-24 grid grid-cols-1 lg:grid-cols-12 gap-12">
+    <div class="lg:col-span-4">
+      <h2
+        class="text-slate-900 dark:text-white text-4xl font-header font-semibold leading-tight"
+      >
+        Frequently asked questions
+      </h2>
+      <p class="mt-4 text-slate-500 dark:text-slate-400 max-w-xs">
+        Find answers to the most common questions from our community.
+      </p>
+    </div>
+    <div class="lg:col-span-8">
+      <div
+        class="flex flex-col divide-y divide-slate-200 dark:divide-slate-700"
+      >
+        <div
+          class="py-6 flex justify-between items-center group cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-900/50 px-4 -mx-4 transition-colors"
+        >
+          <span
+            class="text-lg font-header text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+            >How do I request an early return for a rental?</span
+          >
+          <span
+            class="material-symbols-outlined text-slate-400 dark:text-slate-500 group-hover:translate-x-1 transition-transform"
+            >arrow_forward</span
+          >
+        </div>
+        <div
+          class="py-6 flex justify-between items-center group cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-900/50 px-4 -mx-4 transition-colors"
+        >
+          <span
+            class="text-lg font-header text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+            >What happens if my rental is damaged during my stay?</span
+          >
+          <span
+            class="material-symbols-outlined text-slate-400 dark:text-slate-500 group-hover:translate-x-1 transition-transform"
+            >arrow_forward</span
+          >
+        </div>
+        <div
+          class="py-6 flex justify-between items-center group cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-900/50 px-4 -mx-4 transition-colors"
+        >
+          <span
+            class="text-lg font-header text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+            >Are service fees included in the listed rental price?</span
+          >
+          <span
+            class="material-symbols-outlined text-slate-400 dark:text-slate-500 group-hover:translate-x-1 transition-transform"
+            >arrow_forward</span
+          >
+        </div>
+        <div
+          class="py-6 flex justify-between items-center group cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-900/50 px-4 -mx-4 transition-colors"
+        >
+          <span
+            class="text-lg font-header text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+            >How does the referral program work?</span
+          >
+          <span
+            class="material-symbols-outlined text-slate-400 dark:text-slate-500 group-hover:translate-x-1 transition-transform"
+            >arrow_forward</span
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA Section -->
+  <section
+    class="bg-blue-600 text-white py-16 px-8 md:px-12 flex flex-col md:flex-row justify-between items-center"
+  >
+    <div class="mb-8 md:mb-0">
+      <h2 class="text-3xl md:text-4xl font-header font-semibold mb-4">
+        Still need guidance?
+      </h2>
+      <p class="text-blue-100 tracking-wide max-w-md">
+        Our support team is available 24/7 to help with any questions.
+      </p>
+    </div>
+    <a
+      href="/contact"
+      class="bg-white text-blue-600 px-8 py-3 font-bold tracking-wider uppercase text-sm hover:bg-slate-100 transition-colors whitespace-nowrap"
+    >
+      Get in Touch
+    </a>
+  </section>
+</main>
+
+<script>
+  // Search functionality
+  const searchInput = document.getElementById("helpSearch");
+  if (searchInput) {
+    searchInput.addEventListener("input", function (e) {
+      const searchTerm = e.target.value.toLowerCase();
+      const faqItems = document.querySelectorAll(
+        "section > div:nth-child(2) > div > div > div",
+      );
+
+      faqItems.forEach((item) => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(searchTerm) || searchTerm === "") {
+          item.style.display = "flex";
+        } else {
+          item.style.display = "none";
+        }
+      });
+    });
+  }
+</script>

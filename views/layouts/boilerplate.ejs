@@ -1,30 +1,292 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wanderlust</title>
-    <link rel="stylesheet" href="/css/style.css">
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-<link href="/css/star.css" rel="stylesheet">
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
-</script>
-</head>
-<body class="plus-jakarta-sans-bold">
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StayoX - Vacation Rentals</title>
+    <!-- Google Fonts: Newsreader (Body) and Playfair Display (Headers) -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Theme Configuration -->
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#174ecf",
+              "background-light": "#f9f7f2",
+              "background-dark": "#111621",
+              "cream-texture": "#f9f7f2",
+              "stone-accent": "#e7ebf3",
+            },
+            fontFamily: {
+              display: ["Newsreader", "serif"],
+              header: ["Playfair Display", "serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            backgroundImage: {
+              "subtle-grain":
+                "radial-gradient(circle at 1px 1px, rgba(0,0,0,0.03) 1px, transparent 0)",
+              "subtle-grain-dark":
+                "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0)",
+            },
+            backgroundSize: {
+              grain: "20px 20px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: rgba(23, 78, 207, 0.2);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(23, 78, 207, 0.5);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark text-[#0e121b] dark:text-white font-display overflow-x-hidden antialiased"
+  >
+    <div class="flex min-h-screen w-full relative">
+      <!-- Vertical Spine / Left Margin Accent -->
+      <aside
+        class="hidden lg:flex w-[80px] flex-col items-center justify-between py-10 fixed left-0 top-0 h-screen z-50 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-r border-[#e7ebf3] dark:border-white/10"
+      >
+        <div class="w-[2px] h-24 bg-primary/20"></div>
+        <div class="h-full w-[1px] bg-primary my-8 relative">
+          <div
+            class="absolute -left-[3px] top-1/2 -translate-y-1/2 size-2 rounded-full bg-primary"
+          ></div>
+        </div>
+        <div class="w-[2px] h-24 bg-primary/20"></div>
+      </aside>
+      <!-- Main Content Wrapper -->
+      <div class="flex-1 flex flex-col lg:pl-[80px] bg-subtle-grain bg-grain dark:bg-subtle-grain-dark">
+        <!-- Navbar -->
+        <header
+          class="w-full px-6 py-6 md:px-12 flex items-center justify-between relative z-40 bg-transparent"
+        >
+          <button class="lg:hidden text-primary p-2">
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+          <div class="flex items-center gap-4">
+            <div
+              class="size-8 bg-primary rounded-lg flex items-center justify-center text-white shadow-md"
+            >
+              <span class="material-symbols-outlined text-[20px]">villa</span>
+            </div>
+            <h2 class="font-header text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+              StayoX
+            </h2>
+          </div>
+          <nav class="hidden md:flex items-center gap-10">
+            <a
+              class="text-slate-800 dark:text-slate-200 text-base font-medium hover:text-primary transition-colors italic"
+              href="/listings"
+              >Properties</a
+            >
+            <a
+              class="text-slate-800 dark:text-slate-200 text-base font-medium hover:text-primary transition-colors italic"
+              href="/about"
+              >About</a
+            >
+            <a
+              class="text-slate-800 dark:text-slate-200 text-base font-medium hover:text-primary transition-colors italic"
+              href="/help-center"
+              >Help</a
+            >
+            <a
+              class="text-slate-800 dark:text-slate-200 text-base font-medium hover:text-primary transition-colors italic"
+              href="/contact"
+              >Contact</a
+            >
+          </nav>
+          <div class="flex gap-4">
+            <% if (currUser) { %>
+            <!-- Simple dropdown for logged-in user -->
+            <details class="relative">
+              <summary aria-haspopup="true" class="list-none cursor-pointer flex items-center gap-2 rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold shadow-md shadow-primary/20">
+                <span><%= currUser.username %></span>
+                <span class="material-symbols-outlined text-[18px] opacity-90">expand_more</span>
+              </summary>
+              <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md shadow-lg z-40 py-2">
+                <a href="/users/<%= currUser._id %>" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">My Profile</a>
+                <a href="/bookings" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">My Bookings</a>
+                <hr class="my-1 border-slate-100 dark:border-slate-700" />
+                <a href="/listings/new" class="block px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-700 font-medium">Add New Listing</a>
+                <hr class="my-1 border-slate-100 dark:border-slate-700" />
+                <a href="/logout" class="block px-4 py-2 text-sm text-rose-600 hover:bg-slate-100 dark:hover:bg-slate-700">Logout</a>
+              </div>
+            </details>
+            <% } else { %>
+            <!-- Dropdown for unauthenticated users: Login / Signup / Demo -->
+            <details class="relative">
+              <summary aria-haspopup="true" class="list-none cursor-pointer flex items-center justify-center gap-2 rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold shadow-md shadow-primary/20 hover:bg-primary/90 transition-all">
+                <span>Account</span>
+                <span class="material-symbols-outlined text-[18px]">expand_more</span>
+              </summary>
+              <div class="absolute right-0 mt-2 w-44 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md shadow-lg z-40 py-2">
+                <a href="/login" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">Login</a>
+                <a href="/signup" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">Sign Up</a>
+                <hr class="my-1 border-slate-100 dark:border-slate-700" />
+                <a href="/demo" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">Demo</a>
+              </div>
+            </details>
+            <% } %>
+          </div>
+        </header>
 
-    <%- include('../includes/navbar.ejs'); %>
+        <!-- (search integrated into individual pages) -->
 
-    <div class="container-fluid px-0">
-        <%- include('../includes/flash.ejs'); %>
-         <%- body %> </div>
-
-    <%- include('../includes/footer.ejs'); %>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-<script src="/js/script.js"></script>
-</body>
+        <!-- Main Scrollable Area -->
+        <div class="w-full flex-1 flex flex-col">
+          <%- include('../includes/flash.ejs'); %>
+          <%- body %>
+        </div>
+        <!-- Footer -->
+        <footer
+          class="bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-slate-800"
+        >
+          <div class="px-6 md:px-12 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+              <div class="col-span-1 md:col-span-1">
+                <div class="flex items-center gap-2 mb-6">
+                  <div
+                    class="size-6 bg-primary rounded flex items-center justify-center text-white"
+                  >
+                    <span class="material-symbols-outlined text-[14px]">villa</span>
+                  </div>
+                  <h3 class="font-header text-lg font-bold">StayoX</h3>
+                </div>
+                <p
+                  class="text-sm text-slate-500 dark:text-slate-400 mb-6 leading-relaxed"
+                >
+                  Redefining modern travel with a curated collection of exceptional
+                  homes in the world's most inspiring destinations.
+                </p>
+                <div class="flex gap-4">
+                  <a
+                    class="text-slate-400 hover:text-primary transition"
+                    href="#"
+                    ><span class="material-symbols-outlined">alternate_email</span></a
+                  >
+                  <a
+                    class="text-slate-400 hover:text-primary transition"
+                    href="#"
+                    ><span class="material-symbols-outlined">photo_camera</span></a
+                  >
+                  <a
+                    class="text-slate-400 hover:text-primary transition"
+                    href="#"
+                    ><span class="material-symbols-outlined">public</span></a
+                  >
+                </div>
+              </div>
+              <div>
+                <h4
+                  class="font-bold text-slate-900 dark:text-white mb-6 text-sm uppercase tracking-wider"
+                >
+                  Discover
+                </h4>
+                <ul class="flex flex-col gap-3 text-sm text-slate-600 dark:text-slate-400">
+                  <li>
+                    <a class="hover:text-primary transition" href="/listings">All Properties</a>
+                  </li>
+                  <li>
+                    <a class="hover:text-primary transition" href="#Destinations">Destinations</a>
+                  </li>
+                  <li>
+                    <a class="hover:text-primary transition" href="/about">About</a>
+                  </li>
+                  <li>
+                    <a class="hover:text-primary transition" href="#">Travel Guides</a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4
+                  class="font-bold text-slate-900 dark:text-white mb-6 text-sm uppercase tracking-wider"
+                >
+                  Company
+                </h4>
+                <ul class="flex flex-col gap-3 text-sm text-slate-600 dark:text-slate-400">
+                  <li>
+                    <a class="hover:text-primary transition" href="/about">About Us</a>
+                  </li>
+                  <li>
+                    <a class="hover:text-primary transition" href="#">Careers</a>
+                  </li>
+                  <li>
+                    <a class="hover:text-primary transition" href="#">Press</a>
+                  </li>
+                  <li>
+                    <a class="hover:text-primary transition" href="/contact">Contact</a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4
+                  class="font-bold text-slate-900 dark:text-white mb-6 text-sm uppercase tracking-wider"
+                >
+                  Support
+                </h4>
+                <ul class="flex flex-col gap-3 text-sm text-slate-600 dark:text-slate-400">
+                  <li>
+                    <a class="hover:text-primary transition" href="/help-center">Help Center</a>
+                  </li>
+                  <li>
+                    <a class="hover:text-primary transition" href="/terms">Cancellation Policy</a>
+                  </li>
+                  <li>
+                    <a class="hover:text-primary transition" href="#">Safety</a>
+                  </li>
+                  <li>
+                    <a class="hover:text-primary transition" href="/terms">Terms of Service</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div
+            class="border-t border-slate-200 dark:border-slate-800 px-6 md:px-12 py-8 flex flex-col md:flex-row justify-between items-center gap-4"
+          >
+            <p class="text-xs text-slate-400">© 2024 Boutique Stays Inc. All rights reserved.</p>
+            <div class="flex gap-6 text-xs text-slate-400">
+              <a class="hover:text-primary" href="/privacy">Privacy</a>
+              <a class="hover:text-primary" href="/terms">Terms</a>
+              <a class="hover:text-primary" href="#">Sitemap</a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <script src="/js/script.js"></script>
+    <!-- Google Maps API -->
+    <% if (typeof googleMapsApiKey !== 'undefined' && googleMapsApiKey) { %>
+      <script src="https://maps.googleapis.com/maps/api/js?key=<%= googleMapsApiKey %>&callback=initMap" async defer></script>
+    <% } %>
+    <!-- Map Initialization Script -->
+    <script src="/js/map.js"></script>
+  </body>
 </html>
