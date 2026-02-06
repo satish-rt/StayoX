@@ -1,49 +1,40 @@
 # StayoX - Vacation Rental Booking Platform
 
-A full-stack Node.js/Express vacation rental booking platform with MongoDB, featuring property listings, user authentication, booking management, and payment integration with Razorpay.
-
-> **📚 Documentation:**
->
-> - [🚀 DEPLOYMENT GUIDE](DEPLOYMENT.md) - Deploy to FREE hosting (Replit/Railway)
-> - [✅ FORMS TESTING](FORMS_TESTING.md) - All 14 forms verified working
-> - [🤖 AI CODING GUIDE](.github/copilot-instructions.md) - For AI-assisted development
+A full-stack Node.js/Express vacation rental booking platform with MongoDB, featuring property listings, user authentication, booking management, interactive maps, and payment integration with Razorpay.
 
 ## 🎯 Features
 
 - **User Authentication**: Dual-role authentication (Property Owners & Renters) using Passport.js
 - **Property Listings**: Create, edit, delete listings with image uploads via Cloudinary
 - **Advanced Search**: Search listings by title, location, country, and description
+- **Interactive Maps**: Leaflet + OpenStreetMap integration for property locations (100% FREE)
 - **Booking System**: Complete booking flow with date validation and availability checking
-- **Payment Integration**: Razorpay payment gateway with order creation and verification
+- **Payment Integration**: Razorpay payment gateway with test mode support
 - **Reviews & Ratings**: Users can leave reviews on listings
 - **User Profiles**: User account management with profile customization
-- **Responsive Design**: Mobile-friendly interface with EJS templating
-- **Map Integration**: Google Maps API for property location visualization
-- **Session Management**: Secure session handling with MongoDB/Express Session
+- **Responsive Design**: Mobile-friendly interface with Tailwind CSS + EJS templating
+- **Session Management**: Secure session handling with Express Session
 
 ## 🛠️ Tech Stack
 
 **Backend:**
-
 - Node.js (v22.14.0)
 - Express.js 5.x
-- MongoDB & Mongoose
+- MongoDB & Mongoose ODM
 - Passport.js (Authentication)
-- Express-session
+- Express-session (Session management)
 - Multer (File upload)
 
 **Frontend:**
-
 - EJS Templating
-- Bootstrap/CSS
-- Google Maps API
+- Tailwind CSS + Bootstrap
+- Leaflet Maps + OpenStreetMap (100% FREE - No API key needed)
 - JavaScript (Client-side)
 
 **External Services:**
-
-- Cloudinary (Image storage)
-- Razorpay (Payment gateway)
-- MongoDB Atlas (Database)
+- Cloudinary (Image storage & CDN)
+- Razorpay (Payment gateway - Test mode)
+- MongoDB Atlas (Cloud database)
 
 ## 📋 Prerequisites
 
@@ -51,8 +42,8 @@ A full-stack Node.js/Express vacation rental booking platform with MongoDB, feat
 - npm or yarn
 - MongoDB Atlas account (free tier available)
 - Cloudinary account (free tier available)
-- Razorpay account (free tier available)
-- Google Maps API key
+- Razorpay account (free tier/test mode available)
+- Git & GitHub account for deployment
 
 ## 🚀 Installation
 
@@ -79,20 +70,19 @@ ATLAS_DB=mongodb+srv://username:password@cluster.mongodb.net/stayox
 
 # Session
 SECRET=your-secret-key-here
-NODE_ENV=development
+NODE_ENV=production
 
-# Payment Gateway
-RAZORPAY_KEY_ID=your_razorpay_key_id
-RAZORPAY_KEY_SECRET=your_razorpay_key_secret
-
-# Maps
-GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+# Payment Gateway (Razorpay Test Keys)
+RAZORPAY_KEY_ID=your_test_razorpay_key_id
+RAZORPAY_KEY_SECRET=your_test_razorpay_key_secret
 
 # Cloudinary (Image Storage)
-CLOUDINARY_NAME=your_cloudinary_name
-CLOUDINARY_KEY=your_cloudinary_api_key
-CLOUDINARY_SECRET=your_cloudinary_api_secret
+CLOUD_NAME=your_cloudinary_name
+CLOUD_API_KEY=your_cloudinary_api_key
+CLOUD_API_SECRET=your_cloudinary_api_secret
 ```
+
+**Note:** Maps use Leaflet + OpenStreetMap - NO API KEY NEEDED! ✅
 
 ### 4. Run the Application
 
@@ -208,29 +198,54 @@ The app will start on `http://localhost:3000`
 - Rating, comment
 - Listing reference
 
-## 🚢 Deployment
+## �️ Maps Integration
 
-### Free Deployment Options
+StayoX uses **Leaflet + OpenStreetMap** for property location mapping:
 
-#### Render.com (Recommended)
+- ✅ **100% FREE** - No API keys required
+- ✅ **No billing setup** - Works immediately  
+- ✅ **Interactive** - Click on map to set coordinates
+- ✅ **Works on all pages** - Show/New/Edit listing pages
+- ✅ **Responsive** - Mobile and desktop friendly
 
-1. Go to [render.com](https://render.com)
-2. Connect your GitHub repository
-3. Set Build Command: `npm install`
-4. Set Start Command: `node app.js`
-5. Add environment variables
-6. Deploy
+### Map Features:
+- View property location on listing detail page
+- Click map when creating/editing listings to set coordinates
+- Automatic marker placement with property info popup
+- Zoom and pan controls
 
-#### Railway.app
+## 🚀 Deployment
 
-1. Go to [railway.app](https://railway.app)
-2. Import GitHub repository
-3. Add environment variables
-4. Auto-deploys on push
+### Quick Deploy to Railway (Recommended)
 
-#### Vercel / Fly.io
+1. **Push to GitHub**:
+   ```bash
+   git add -A
+   git commit -m "Your message"
+   git push origin main
+   ```
 
-- Similar process with GitHub integration
+2. **Deploy on Railway**:
+   - Go to https://railway.app/dashboard
+   - Click "New Project" → "Deploy from GitHub"
+   - Select your repository: `satish-rt/StayoX`
+   - Railway auto-deploys on every push
+
+3. **Add Environment Variables** in Railway dashboard:
+   - Copy all variables from your `.env` file
+   - Railway shows your live URL (e.g., `https://stayox-xxx.railway.app`)
+
+4. **Verify Deployment**:
+   - ✅ Check maps appear on listing pages
+   - ✅ Test booking flow with Razorpay
+   - ✅ Verify images upload to Cloudinary
+   - ✅ Test user authentication
+
+### Alternative Hosting Options
+
+- **Render.com** - Similar to Railway
+- **Replit** - Easy for beginners
+- **Heroku** - Traditional choice (paid)
 
 ## 📦 Dependencies
 
@@ -265,7 +280,7 @@ See `package.json` for complete list:
 
 ## 📝 License
 
-This project is licensed under the ISC License.
+ISC
 
 ## 👤 Author
 
@@ -277,6 +292,6 @@ For issues and questions, please open an issue on the GitHub repository.
 
 ---
 
-**Live Demo**: Coming soon...
+**Built with ❤️ using Node.js, Express, MongoDB, and Leaflet Maps**
 
 **Happy Booking! 🎉**
