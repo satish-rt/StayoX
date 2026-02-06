@@ -11,6 +11,8 @@
       href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
     />
+    <!-- Leaflet Maps CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <!-- Theme Configuration -->
@@ -282,11 +284,7 @@
       </div>
     </div>
     <script src="/js/script.js"></script>
-    <!-- Google Maps API -->
-    <% if (typeof googleMapsApiKey !== 'undefined' && googleMapsApiKey) { %>
-      <script src="https://maps.googleapis.com/maps/api/js?key=<%= googleMapsApiKey %>&callback=initMap" async defer></script>
-    <% } %>
-    <!-- Map Initialization Script -->
-    <script src="/js/map.js"></script>
+    <!-- Leaflet Maps JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   </body>
 </html>

@@ -164,10 +164,60 @@
         </div>
       <% } %>
 
-      <!-- Map -->
+      <!-- Map with Leaflet -->
       <section class="w-full mt-12">
         <h3 class="text-xs uppercase tracking-widest font-bold mb-6 text-slate-900 dark:text-white">Location</h3>
-        <div id="map" class="w-full h-96 bg-slate-200 dark:bg-slate-800 rounded-none overflow-hidden" data-lat="<%= listing.latitude || '' %>" data-lng="<%= listing.longitude || '' %>"></div>
+        <% if(listing.latitude && listing.longitude) { %>
+          <!-- Map Container -->
+          <div id="listing-map" class="w-full h-96 bg-slate-200 dark:bg-slate-800 rounded-none overflow-hidden border border-slate-300 dark:border-slate-600"></div>
+          
+          <script>
+            function initializeMap() {
+              if (typeof L === 'undefined') {
+                // Leaflet not loaded yet, try again
+                setTimeout(initializeMap, 100);
+                return;
+              }
+              
+              const latitude = <%= listing.latitude %>;
+              const longitude = <%= listing.longitude %>;
+              const title = '<%= listing.title.replace(/'/g, "\\'") %>';
+              const location = '<%= listing.location.replace(/'/g, "\\'") %>';
+              const country = '<%= listing.country.replace(/'/g, "\\'") %>';
+              
+              // Create map
+              const map = L.map('listing-map').setView([latitude, longitude], 13);
+              
+              // Add tile layer
+              L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 19
+              }).addTo(map);
+              
+              // Add marker with popup
+              L.marker([latitude, longitude])
+                .addTo(map)
+                .bindPopup('<strong>' + title + '</strong><br>' + location + ', ' + country)
+                .openPopup();
+              
+              // Resize map
+              setTimeout(() => map.invalidateSize(), 300);
+            }
+            
+            // Start initialization when document is ready
+            if (document.readyState === 'loading') {
+              document.addEventListener('DOMContentLoaded', initializeMap);
+            } else {
+              initializeMap();
+            }
+          </script>
+        <% } else { %>
+          <div class="w-full h-96 bg-slate-200 dark:bg-slate-800 rounded-none overflow-hidden flex items-center justify-center">
+            <p class="text-slate-600 dark:text-slate-400 text-center">
+              Location coordinates not available for this property
+            </p>
+          </div>
+        <% } %>
       </section>
     </article>
 

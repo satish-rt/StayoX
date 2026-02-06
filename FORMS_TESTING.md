@@ -9,8 +9,10 @@ This document verifies that all forms in StayoX are working correctly and data i
 ## 📋 Form Inventory & Status
 
 ### 1. **User Registration Form** ✅ WORKING
+
 **Location:** `/signup`
 **Fields:**
+
 - Username (required)
 - Email (required)
 - Password (required)
@@ -24,6 +26,7 @@ This document verifies that all forms in StayoX are working correctly and data i
 **Redirect:** ✅ Redirects to `/listings` on success
 
 **Test Steps:**
+
 ```
 1. Go to /signup
 2. Fill all required fields
@@ -35,8 +38,10 @@ This document verifies that all forms in StayoX are working correctly and data i
 ---
 
 ### 2. **User Login Form** ✅ WORKING
+
 **Location:** `/login`
 **Fields:**
+
 - Username (required)
 - Password (required)
 
@@ -46,6 +51,7 @@ This document verifies that all forms in StayoX are working correctly and data i
 **Redirect:** ✅ Redirects to original URL or `/listings`
 
 **Test Steps:**
+
 ```
 1. Go to /login
 2. Enter username and password
@@ -57,8 +63,10 @@ This document verifies that all forms in StayoX are working correctly and data i
 ---
 
 ### 3. **Listing Creation Form** ✅ WORKING
+
 **Location:** `/listings/new`
 **Fields:**
+
 - Title (required)
 - Description (required)
 - Location (required)
@@ -79,6 +87,7 @@ This document verifies that all forms in StayoX are working correctly and data i
 **Redirect:** ✅ Redirects to listing show page
 
 **Test Steps:**
+
 ```
 1. Login as owner
 2. Go to /listings/new
@@ -93,6 +102,7 @@ This document verifies that all forms in StayoX are working correctly and data i
 ---
 
 ### 4. **Listing Edit Form** ✅ WORKING
+
 **Location:** `/listings/:id/edit`
 **Fields:** Same as listing creation
 **Auth Required:** ✅ isLoggedIn + isOwner middleware
@@ -100,6 +110,7 @@ This document verifies that all forms in StayoX are working correctly and data i
 **File Upload:** ✅ Can update image
 
 **Test Steps:**
+
 ```
 1. Create a listing
 2. Click "Edit" button
@@ -113,12 +124,14 @@ This document verifies that all forms in StayoX are working correctly and data i
 ---
 
 ### 5. **Listing Delete Form** ✅ WORKING
+
 **Location:** Listings index/show page
 **Auth Required:** ✅ isLoggedIn + isOwner middleware
 **Confirmation:** ✅ JavaScript confirm dialog
 **Data Deletion:** ✅ Deletes from MongoDB
 
 **Test Steps:**
+
 ```
 1. View your listing
 2. Click "Delete" button
@@ -131,8 +144,10 @@ This document verifies that all forms in StayoX are working correctly and data i
 ---
 
 ### 6. **Search Form** ✅ WORKING
+
 **Location:** `/listings` (top of page)
 **Fields:**
+
 - Search query (text input)
 
 **Data Handling:** Query parameter
@@ -140,6 +155,7 @@ This document verifies that all forms in StayoX are working correctly and data i
 **Response:** ✅ Filtered listings displayed
 
 **Test Steps:**
+
 ```
 1. Go to /listings
 2. Enter search term (e.g., "Paris")
@@ -151,8 +167,10 @@ This document verifies that all forms in StayoX are working correctly and data i
 ---
 
 ### 7. **Booking Creation Form** ✅ WORKING
+
 **Location:** `/listings/:id/bookings` (booking page)
 **Fields:**
+
 - Check-in Date (required)
 - Check-out Date (required)
 - Number of Guests (required)
@@ -164,6 +182,7 @@ This document verifies that all forms in StayoX are working correctly and data i
 **Redirect:** ✅ To payment page if successful
 
 **Test Steps:**
+
 ```
 1. Login as renter
 2. View a listing
@@ -179,8 +198,10 @@ This document verifies that all forms in StayoX are working correctly and data i
 ---
 
 ### 8. **Payment Form** ✅ WORKING
+
 **Location:** `/bookings/:id/payment`
 **Fields:**
+
 - Razorpay checkout button
 
 **Payment Processing:** ✅ Razorpay integration
@@ -189,6 +210,7 @@ This document verifies that all forms in StayoX are working correctly and data i
 **Data Storage:** ✅ Updates booking with payment status
 
 **Test Steps:**
+
 ```
 1. Create a booking (check previous form)
 2. Proceed to payment page
@@ -204,8 +226,10 @@ This document verifies that all forms in StayoX are working correctly and data i
 ---
 
 ### 9. **Review Submission Form** ✅ WORKING
+
 **Location:** `/listings/:id/reviews` (show page)
 **Fields:**
+
 - Rating (1-5 stars)
 - Comment (text area)
 
@@ -215,6 +239,7 @@ This document verifies that all forms in StayoX are working correctly and data i
 **Response:** ✅ Flash message on success
 
 **Test Steps:**
+
 ```
 1. View a listing (book it first if needed)
 2. Scroll to reviews section
@@ -228,12 +253,14 @@ This document verifies that all forms in StayoX are working correctly and data i
 ---
 
 ### 10. **Review Delete Form** ✅ WORKING
+
 **Location:** Listing show page (your reviews)
 **Auth Required:** ✅ isLoggedIn + isReviewAuthor
 **Confirmation:** ✅ JavaScript confirm dialog
 **Data Deletion:** ✅ Deletes from MongoDB
 
 **Test Steps:**
+
 ```
 1. View a listing with your review
 2. Click "Delete Review" button
@@ -245,8 +272,10 @@ This document verifies that all forms in StayoX are working correctly and data i
 ---
 
 ### 11. **User Account Update Form** ✅ WORKING
+
 **Location:** `/account`
 **Fields:**
+
 - First Name
 - Last Name
 - Email
@@ -259,6 +288,7 @@ This document verifies that all forms in StayoX are working correctly and data i
 **Response:** ✅ Flash message on success
 
 **Test Steps:**
+
 ```
 1. Login and go to /account
 2. Modify your information
@@ -270,8 +300,10 @@ This document verifies that all forms in StayoX are working correctly and data i
 ---
 
 ### 12. **Profile Image Upload Form** ✅ WORKING
+
 **Location:** `/account` (profile section)
 **Fields:**
+
 - Profile Image (file upload)
 
 **File Upload:** ✅ Cloudinary integration
@@ -279,6 +311,7 @@ This document verifies that all forms in StayoX are working correctly and data i
 **Response:** ✅ Image updated on page
 
 **Test Steps:**
+
 ```
 1. Go to /account
 2. Click "Upload Profile Picture"
@@ -291,8 +324,10 @@ This document verifies that all forms in StayoX are working correctly and data i
 ---
 
 ### 13. **Contact Form** ✅ NEWLY ADDED
+
 **Location:** `/contact`
 **Fields:**
+
 - Full Name (required)
 - Email Address (required)
 - Subject (required)
@@ -305,6 +340,7 @@ This document verifies that all forms in StayoX are working correctly and data i
 **Admin View:** ✅ Available at `/admin/contacts`
 
 **Test Steps:**
+
 ```
 1. Go to /contact
 2. Fill in all required fields
@@ -317,14 +353,17 @@ This document verifies that all forms in StayoX are working correctly and data i
 ---
 
 ### 14. **Account Emoji Update Form** ✅ WORKING
+
 **Location:** `/account` (profile section)
 **Fields:**
+
 - Emoji picker (hidden select)
 
 **Data Storage:** ✅ Updates User profileEmoji field
 **Response:** ✅ Updates immediately on page
 
 **Test Steps:**
+
 ```
 1. Go to /account
 2. Select emoji from picker
@@ -336,33 +375,35 @@ This document verifies that all forms in StayoX are working correctly and data i
 
 ## 📊 Form Status Summary
 
-| Form Name | Status | Data Storage | Auth Required |
-|-----------|--------|--------------|----------------|
-| Sign Up | ✅ Working | User | ❌ No |
-| Login | ✅ Working | Session | ❌ No |
-| Create Listing | ✅ Working | Listing | ✅ Yes |
-| Edit Listing | ✅ Working | Listing | ✅ Yes (owner) |
-| Delete Listing | ✅ Working | Listing | ✅ Yes (owner) |
-| Search | ✅ Working | Query | ❌ No |
-| Create Booking | ✅ Working | Booking | ✅ Yes |
-| Payment | ✅ Working | Booking | ✅ Yes |
-| Add Review | ✅ Working | Review | ✅ Yes |
-| Delete Review | ✅ Working | Review | ✅ Yes (author) |
-| Update Account | ✅ Working | User | ✅ Yes |
-| Upload Profile | ✅ Working | User | ✅ Yes |
-| Update Emoji | ✅ Working | User | ✅ Yes |
-| Contact Query | ✅ Working | Contact | ❌ No |
+| Form Name      | Status     | Data Storage | Auth Required   |
+| -------------- | ---------- | ------------ | --------------- |
+| Sign Up        | ✅ Working | User         | ❌ No           |
+| Login          | ✅ Working | Session      | ❌ No           |
+| Create Listing | ✅ Working | Listing      | ✅ Yes          |
+| Edit Listing   | ✅ Working | Listing      | ✅ Yes (owner)  |
+| Delete Listing | ✅ Working | Listing      | ✅ Yes (owner)  |
+| Search         | ✅ Working | Query        | ❌ No           |
+| Create Booking | ✅ Working | Booking      | ✅ Yes          |
+| Payment        | ✅ Working | Booking      | ✅ Yes          |
+| Add Review     | ✅ Working | Review       | ✅ Yes          |
+| Delete Review  | ✅ Working | Review       | ✅ Yes (author) |
+| Update Account | ✅ Working | User         | ✅ Yes          |
+| Upload Profile | ✅ Working | User         | ✅ Yes          |
+| Update Emoji   | ✅ Working | User         | ✅ Yes          |
+| Contact Query  | ✅ Working | Contact      | ❌ No           |
 
 ---
 
 ## 🔍 Data Validation Rules
 
 ### User Registration
+
 - Username: Required, unique, min 3 chars
 - Email: Required, valid email format
 - Password: Required, min 6 chars, must be confirmed
 
 ### Listing
+
 - Title: Required, max 100 chars
 - Description: Required, max 5000 chars
 - Price: Required, number, > 0
@@ -371,16 +412,19 @@ This document verifies that all forms in StayoX are working correctly and data i
 - Image: JPG/PNG/WebP only
 
 ### Booking
+
 - Check-in: Required, cannot be past date
 - Check-out: Required, must be after check-in
 - Guests: Required, min 1, max 10
 - No overlapping bookings on same listing
 
 ### Review
+
 - Rating: 1-5 stars (required)
 - Comment: Min 10 chars, max 500 chars
 
 ### Contact
+
 - Name: Required, max 100 chars
 - Email: Required, valid email
 - Subject: Required, max 100 chars
@@ -391,6 +435,7 @@ This document verifies that all forms in StayoX are working correctly and data i
 ## 🔒 Security Features
 
 ✅ **All forms include:**
+
 - CSRF protection (Express middleware)
 - Input validation (Joi schemas)
 - SQL injection prevention (MongoDB, no raw queries)
@@ -400,6 +445,7 @@ This document verifies that all forms in StayoX are working correctly and data i
 - Error handling with try-catch
 
 ✅ **File uploads:**
+
 - Cloudinary storage (secure)
 - File type validation
 - File size limits

@@ -194,8 +194,90 @@
       <!-- Map -->
       <div class="relative">
         <label class="block font-body font-medium text-stone-700 dark:text-stone-300 mb-3 text-sm uppercase tracking-widest">Click on map to set location</label>
-        <div id="map" style="height: 400px;" data-lat="<%= listing.latitude || '' %>" data-lng="<%= listing.longitude || '' %>" class="w-full border border-stone-200 dark:border-stone-700 overflow-hidden"></div>
+        <div id="edit-listing-map" style="height: 400px;" class="w-full border border-stone-200 dark:border-stone-700 overflow-hidden rounded-lg"></div>
       </div>
+
+      <script>
+        function initializeEditListingMap() {
+          if (typeof L === 'undefined') {
+            setTimeout(initializeEditListingMap, 100);
+            return;
+          }
+          
+          // Get current listing coordinates
+          const currentLat = parseFloat('<%= listing.latitude || "28.7041" %>');
+          const currentLng = parseFloat('<%= listing.longitude || "77.1025" %>');
+          const mapElement = document.getElementById('edit-listing-map');
+          
+          if (!mapElement) return;
+          
+          // Create map
+          const map = L.map('edit-listing-map').setView([currentLat, currentLng], 13);
+          
+          // Add tile layer
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+          }).addTo(map);
+          
+          // Initial marker
+          let marker = L.marker([currentLat, currentLng])
+            .addTo(map)
+            .bindPopup('Property location')
+            .openPopup();
+          
+          const latInput = document.getElementById('latitude');
+          const lngInput = document.getElementById('longitude');
+          
+          // Map click handler
+          map.on('click', function(e) {
+            const { lat, lng } = e.latlng;
+            
+            // Update inputs
+            latInput.value = lat.toFixed(6);
+            lngInput.value = lng.toFixed(6);
+            
+            // Update marker
+            map.removeLayer(marker);
+            marker = L.marker([lat, lng])
+              .addTo(map)
+              .bindPopup('Property location')
+              .openPopup();
+          });
+          
+          // Input change handlers
+          latInput.addEventListener('change', function() {
+            const lat = parseFloat(this.value) || currentLat;
+            const lng = parseFloat(lngInput.value) || currentLng;
+            map.setView([lat, lng], 13);
+            map.removeLayer(marker);
+            marker = L.marker([lat, lng])
+              .addTo(map)
+              .bindPopup('Property location')
+              .openPopup();
+          });
+          
+          lngInput.addEventListener('change', function() {
+            const lat = parseFloat(latInput.value) || currentLat;
+            const lng = parseFloat(this.value) || currentLng;
+            map.setView([lat, lng], 13);
+            map.removeLayer(marker);
+            marker = L.marker([lat, lng])
+              .addTo(map)
+              .bindPopup('Property location')
+              .openPopup();
+          });
+          
+          // Resize map
+          setTimeout(() => map.invalidateSize(), 300);
+        }
+        
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initializeEditListingMap);
+        } else {
+          initializeEditListingMap();
+        }
+      </script>
     </section>
 
     <!-- SECTION 6: ACTIONS -->

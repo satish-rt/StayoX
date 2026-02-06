@@ -95,9 +95,15 @@ module.exports.createListing = async(req, res,next) => {
            // Ensure all numeric fields are properly converted
            if (req.body.listing.latitude) {
                newListing.latitude = parseFloat(req.body.listing.latitude);
+           } else {
+               // Default to Delhi coordinates if not provided
+               newListing.latitude = 28.7041;
            }
            if (req.body.listing.longitude) {
                newListing.longitude = parseFloat(req.body.listing.longitude);
+           } else {
+               // Default to Delhi coordinates if not provided
+               newListing.longitude = 77.1025;
            }
            if (req.body.listing.bedrooms) {
                newListing.bedrooms = parseInt(req.body.listing.bedrooms);
@@ -147,6 +153,15 @@ module.exports.editListing = async (req,res) => {
 
 module.exports.updateListing = async (req, res, next) => {
   const { id } = req.params;
+  
+  // Add default coordinates if not provided
+  if (!req.body.listing.latitude) {
+    req.body.listing.latitude = 28.7041; // Delhi default
+  }
+  if (!req.body.listing.longitude) {
+    req.body.listing.longitude = 77.1025; // Delhi default
+  }
+  
   const listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing }, { new: true, runValidators: true });
 if(typeof req.file !== "undefined"){
   let url = req.file.path;

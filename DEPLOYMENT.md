@@ -5,6 +5,7 @@
 ### **Option 1: Replit.com (⭐ EASIEST & RECOMMENDED)**
 
 #### Why Replit?
+
 - ✅ Super simple setup (5 minutes)
 - ✅ No credit card required
 - ✅ Auto-deploys on file save
@@ -52,6 +53,7 @@ CLOUDINARY_SECRET=your_cloudinary_secret
    - Share this link anywhere
 
 #### Troubleshooting Replit:
+
 - **Port issue?** Replit auto-assigns port 3000
 - **Database error?** Check ATLAS_DB connection string
 - **Deployment failed?** Check console for errors (Run button area)
@@ -61,6 +63,7 @@ CLOUDINARY_SECRET=your_cloudinary_secret
 ### **Option 2: Railway.app (Also Simple)**
 
 #### Why Railway?
+
 - ✅ GitHub auto-deploy on push
 - ✅ Free $5/month credit
 - ✅ No credit card (initially)
@@ -98,6 +101,7 @@ CLOUDINARY_SECRET=your_cloudinary_secret
 ### **Option 3: Heroku (Free tier discontinued)**
 
 **⚠️ Note:** Heroku removed free tier (Nov 2022)
+
 - Requires credit card ($7-50/month)
 - **NOT RECOMMENDED** - use Replit or Railway instead
 
@@ -106,6 +110,7 @@ CLOUDINARY_SECRET=your_cloudinary_secret
 ### **Option 4: Vercel (Frontend only)**
 
 ⚠️ **Not ideal for full-stack Node.js app**
+
 - Works better with Next.js/serverless
 - Requires separate backend hosting
 - **SKIP THIS** - use Replit instead
@@ -165,11 +170,13 @@ CLOUDINARY_SECRET=your_cloudinary_secret
 Generate a random string for `SECRET`:
 
 **Option A:** Use Node.js
+
 ```bash
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
 
 **Option B:** Use Online Generator
+
 - Go to [uuidonline.com](https://www.uuidonline.com/)
 - Generate UUID → Use as SECRET
 
@@ -206,37 +213,42 @@ Before deploying, verify:
 
 ## 📊 Deployment Comparison
 
-| Platform | Setup Time | Cost | Auto-Deploy | Recommendation |
-|----------|-----------|------|------------|-----------------|
-| **Replit** | 5 min | FREE | No | ⭐ Best for beginners |
-| **Railway** | 10 min | FREE ($5 credit) | Yes | ⭐ Best for development |
-| **Heroku** | 10 min | $7/month | Yes | ❌ No free tier |
-| **Vercel** | 10 min | FREE (limited) | Yes | ⚠️ Not ideal for Node.js |
+| Platform    | Setup Time | Cost             | Auto-Deploy | Recommendation           |
+| ----------- | ---------- | ---------------- | ----------- | ------------------------ |
+| **Replit**  | 5 min      | FREE             | No          | ⭐ Best for beginners    |
+| **Railway** | 10 min     | FREE ($5 credit) | Yes         | ⭐ Best for development  |
+| **Heroku**  | 10 min     | $7/month         | Yes         | ❌ No free tier          |
+| **Vercel**  | 10 min     | FREE (limited)   | Yes         | ⚠️ Not ideal for Node.js |
 
 ---
 
 ## 🔧 Troubleshooting Deployment
 
 ### **Issue: "Cannot connect to MongoDB"**
+
 - ✅ Check `ATLAS_DB` connection string
 - ✅ Verify database credentials
 - ✅ Whitelist deployment IP in MongoDB Atlas
 
 ### **Issue: "Image upload not working"**
+
 - ✅ Check Cloudinary credentials
 - ✅ Verify `CLOUDINARY_NAME`, `CLOUDINARY_KEY`, `CLOUDINARY_SECRET`
 
 ### **Issue: "Payment not working"**
+
 - ✅ Use Razorpay test keys (not live)
 - ✅ Use test card: `4111 1111 1111 1111`
 - ✅ Verify keys in environment variables
 
 ### **Issue: "Maps not showing"**
+
 - ✅ Check `GOOGLE_MAPS_API_KEY`
 - ✅ Verify API is enabled in Google Cloud Console
 - ✅ Check browser console for API errors
 
 ### **Issue: "Port already in use"**
+
 - ✅ Replit/Railway auto-assign ports
 - ✅ Change app.js to use: `const port = process.env.PORT || 3000`
 

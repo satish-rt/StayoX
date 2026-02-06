@@ -22,7 +22,7 @@ module.exports.submitContactForm = async (req, res) => {
       subject,
       message,
       phone: phone || "",
-      userType: req.user ? (req.user.role || "general") : "general",
+      userType: req.user ? req.user.role || "general" : "general",
       status: "new",
     });
 
@@ -31,7 +31,7 @@ module.exports.submitContactForm = async (req, res) => {
 
     req.flash(
       "success",
-      "Thank you for your message! We'll respond within 24 hours."
+      "Thank you for your message! We'll respond within 24 hours.",
     );
     res.redirect("/contact");
   } catch (err) {

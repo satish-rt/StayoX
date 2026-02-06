@@ -2,7 +2,8 @@
 
 A full-stack Node.js/Express vacation rental booking platform with MongoDB, featuring property listings, user authentication, booking management, and payment integration with Razorpay.
 
-> **📚 Documentation:** 
+> **📚 Documentation:**
+>
 > - [🚀 DEPLOYMENT GUIDE](DEPLOYMENT.md) - Deploy to FREE hosting (Replit/Railway)
 > - [✅ FORMS TESTING](FORMS_TESTING.md) - All 14 forms verified working
 > - [🤖 AI CODING GUIDE](.github/copilot-instructions.md) - For AI-assisted development
@@ -23,6 +24,7 @@ A full-stack Node.js/Express vacation rental booking platform with MongoDB, feat
 ## 🛠️ Tech Stack
 
 **Backend:**
+
 - Node.js (v22.14.0)
 - Express.js 5.x
 - MongoDB & Mongoose
@@ -31,12 +33,14 @@ A full-stack Node.js/Express vacation rental booking platform with MongoDB, feat
 - Multer (File upload)
 
 **Frontend:**
+
 - EJS Templating
 - Bootstrap/CSS
 - Google Maps API
 - JavaScript (Client-side)
 
 **External Services:**
+
 - Cloudinary (Image storage)
 - Razorpay (Payment gateway)
 - MongoDB Atlas (Database)
@@ -53,12 +57,14 @@ A full-stack Node.js/Express vacation rental booking platform with MongoDB, feat
 ## 🚀 Installation
 
 ### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/satish-rt/StayoX.git
 cd StayoX
 ```
 
 ### 2. Install Dependencies
+
 ```bash
 npm install
 ```
@@ -91,6 +97,7 @@ CLOUDINARY_SECRET=your_cloudinary_api_secret
 ### 4. Run the Application
 
 **Development:**
+
 ```bash
 node app.js
 ```
@@ -136,17 +143,20 @@ The app will start on `http://localhost:3000`
 ## 🔑 Key Features & Usage
 
 ### Listing Management
+
 - **Create Listing**: Owners can create new property listings with images and details
 - **Edit/Delete**: Modify or remove your listings
 - **Search**: Find properties by location, title, country, or description
 
 ### Booking System
+
 - **Create Booking**: Select dates, number of guests
 - **Pricing**: Automatic calculation with 18% GST + 5% platform fee
 - **Payment**: Secure payment via Razorpay
 - **Cancellation**: Cancel completed bookings within 24 hours for refund
 
 ### User Roles
+
 - **Owners**: Create and manage property listings
 - **Renters**: Book properties and manage bookings
 
@@ -169,12 +179,14 @@ The app will start on `http://localhost:3000`
 ## 🗄️ Database Models
 
 ### User
+
 - Username, email, password (hashed)
 - First name, last name, phone number
 - Role (owner/renter)
 - Profile image and emoji
 
 ### Listing
+
 - Title, description, location, country
 - Price, property type, amenities
 - Bedrooms, bathrooms, max guests
@@ -183,6 +195,7 @@ The app will start on `http://localhost:3000`
 - Image (URL + filename for Cloudinary)
 
 ### Booking
+
 - Listing reference, user reference
 - Check-in/check-out dates
 - Number of nights, guest count
@@ -190,6 +203,7 @@ The app will start on `http://localhost:3000`
 - Payment ID (Razorpay)
 
 ### Review
+
 - Author reference
 - Rating, comment
 - Listing reference
@@ -199,6 +213,7 @@ The app will start on `http://localhost:3000`
 ### Free Deployment Options
 
 #### Render.com (Recommended)
+
 1. Go to [render.com](https://render.com)
 2. Connect your GitHub repository
 3. Set Build Command: `npm install`
@@ -207,17 +222,20 @@ The app will start on `http://localhost:3000`
 6. Deploy
 
 #### Railway.app
+
 1. Go to [railway.app](https://railway.app)
 2. Import GitHub repository
 3. Add environment variables
 4. Auto-deploys on push
 
 #### Vercel / Fly.io
+
 - Similar process with GitHub integration
 
 ## 📦 Dependencies
 
 See `package.json` for complete list:
+
 - express - Web framework
 - mongoose - MongoDB ODM
 - passport - Authentication
