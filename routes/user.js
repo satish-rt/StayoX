@@ -73,9 +73,9 @@ router.get("/about", (req, res) => {
   res.render("about.ejs");
 });
 
-// User listings (My Listings) - Use a separate callback to handle this specific route
+// User listings (My Listings)
 router.get(
-  /^\/users\/([^/]+)\/listings$/,
+  "/users/:userId/listings",
   wrapAsync(userController.renderUserListings),
 );
 
