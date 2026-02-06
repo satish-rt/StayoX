@@ -2,6 +2,11 @@
 
 A full-stack Node.js/Express vacation rental booking platform with MongoDB, featuring property listings, user authentication, booking management, and payment integration with Razorpay.
 
+> **📚 Documentation:** 
+> - [🚀 DEPLOYMENT GUIDE](DEPLOYMENT.md) - Deploy to FREE hosting (Replit/Railway)
+> - [✅ FORMS TESTING](FORMS_TESTING.md) - All 14 forms verified working
+> - [🤖 AI CODING GUIDE](.github/copilot-instructions.md) - For AI-assisted development
+
 ## 🎯 Features
 
 - **User Authentication**: Dual-role authentication (Property Owners & Renters) using Passport.js
