@@ -85,4 +85,12 @@ router.get("/users/:id", wrapAsync(userController.renderUserAboutPage));
 // GET: Logout user
 router.get("/logout", userController.logOut);
 
+// Contact form routes
+const contactController = require("../controllers/contact.js");
+
+router
+  .route("/contact")
+  .get(contactController.renderContactForm)
+  .post(wrapAsync(contactController.submitContactForm));
+
 module.exports = router;
