@@ -1,5 +1,8 @@
 # StayoX - Vacation Rental Booking Platform
 
+> **🚀 Production Ready** | Deployed on Render | Database: MongoDB Atlas | Images: Cloudinary CDN  
+> **Last Updated**: February 6, 2026
+
 A full-stack Node.js/Express vacation rental booking platform with MongoDB, featuring property listings, user authentication, booking management, interactive maps, and payment integration with Razorpay.
 
 ## 🎯 Features
@@ -214,38 +217,169 @@ StayoX uses **Leaflet + OpenStreetMap** for property location mapping:
 - Automatic marker placement with property info popup
 - Zoom and pan controls
 
-## 🚀 Deployment
+## 🚀 Deployment Guide
 
-### Quick Deploy to Railway (Recommended)
+**Deployment Date**: February 6, 2026
 
-1. **Push to GitHub**:
-   ```bash
-   git add -A
-   git commit -m "Your message"
-   git push origin main
+### Prerequisites for Deployment
+
+Create accounts for these FREE services:
+
+1. **MongoDB Atlas** - Cloud Database (FREE tier)
+2. **Cloudinary** - Image Storage & CDN (FREE tier)  
+3. **Razorpay** - Payment Gateway (FREE test mode)
+4. **Render/Railway** - App Hosting (FREE tier)
+
+### Step 1: Setup MongoDB Atlas (Database)
+
+1. Go to [mongodb.com/atlas](https://www.mongodb.com/atlas)
+2. Sign up and create a **M0 Free Cluster**
+3. Create database user: `satishrathod26122005`
+4. Whitelist IP: `0.0.0.0/0` (Network Access)
+5. Get connection string format:
+   ```
+   mongodb+srv://username:password@cluster.mongodb.net/wanderlust?retryWrites=true&w=majority
    ```
 
-2. **Deploy on Railway**:
-   - Go to https://railway.app/dashboard
-   - Click "New Project" → "Deploy from GitHub"
-   - Select your repository: `satish-rt/StayoX`
-   - Railway auto-deploys on every push
+### Step 2: Setup Cloudinary (Image Storage)
 
-3. **Add Environment Variables** in Railway dashboard:
-   - Copy all variables from your `.env` file
-   - Railway shows your live URL (e.g., `https://stayox-xxx.railway.app`)
+1. Go to [cloudinary.com](https://cloudinary.com)
+2. Sign up (FREE account)
+3. Get your credentials from Dashboard:
+   - `CLOUD_NAME`
+   - `CLOUD_API_KEY`
+   - `CLOUD_API_SECRET`
 
-4. **Verify Deployment**:
-   - ✅ Check maps appear on listing pages
-   - ✅ Test booking flow with Razorpay
-   - ✅ Verify images upload to Cloudinary
-   - ✅ Test user authentication
+### Step 3: Setup Razorpay (Payments)
 
-### Alternative Hosting Options
+1. Go to [razorpay.com](https://razorpay.com)
+2. Create account and access test mode
+3. Get API Keys:
+   - `RAZORPAY_KEY_ID` (starts with `rzp_test_`)
+   - `RAZORPAY_KEY_SECRET`
 
-- **Render.com** - Similar to Railway
-- **Replit** - Easy for beginners
-- **Heroku** - Traditional choice (paid)
+### Step 4: Deploy on Render (Recommended)
+
+**Render is more stable than Railway and perfect for production**
+
+#### 4.1 Push Code to GitHub
+
+```bash
+git add -A
+git commit -m "Prepare for Render deployment - Date: Feb 6, 2026"
+git push origin main
+```
+
+#### 4.2 Connect Render to GitHub
+
+1. Go to [render.com](https://render.com)
+2. Sign up with GitHub
+3. Click **New +** → **Web Service**
+4. Select your `StayoX` repository
+5. Click **Connect**
+
+#### 4.3 Configure Render Settings
+
+| Setting | Value |
+|---------|-------|
+| Name | `stayox` |
+| Environment | `Node` |
+| Region | (Select closest) |
+| Build Command | `npm install` |
+| Start Command | `node app.js` |
+
+#### 4.4 Add Environment Variables
+
+In Render's **Advanced** section, add these variables:
+
+```env
+# Database (MongoDB Atlas)
+ATLAS_DB=mongodb+srv://satishrathod26122005:PASSWORD@cluster0.akj6nei.mongodb.net/wanderlust?retryWrites=true&w=majority&appName=Cluster0&tls=true
+
+# Session (Keep secure!)
+SECRET=dwgffhhdbSDGFHBNTGBasffdgf
+
+# Image Storage (Cloudinary)
+CLOUD_NAME=dov3kwjzh
+CLOUD_API_KEY=635411365185744
+CLOUD_API_SECRET=QdM10fDXSyuAr9E_cC5ArYsETVk
+
+# Payment Gateway (Razorpay Test Keys)
+RAZORPAY_KEY_ID=rzp_test_SAuXmJoNY6o6Tg
+RAZORPAY_KEY_SECRET=e5jjmofwEhV6ZLHRLsJ8VWsd
+
+# Deployment
+NODE_ENV=production
+```
+
+#### 4.5 Deploy
+
+1. Click **Create Web Service**
+2. Wait for build to complete (3-5 minutes)
+3. Render provides your live URL: `https://stayox.onrender.com`
+
+### Verify Deployment Works
+
+✅ **Test these features**:
+- [ ] Homepage loads
+- [ ] User SignUp/Login works
+- [ ] Create listing with image (tests Cloudinary)
+- [ ] View listings
+- [ ] Make booking (tests Razorpay in test mode)
+- [ ] Leave reviews
+- [ ] Maps display property locations
+
+### Alternative Hosting Platforms
+
+<details>
+<summary><b>Railway.app</b></summary>
+
+1. Go to [railway.app](https://railway.app)
+2. Connect GitHub repository
+3. Add same environment variables
+4. Railway auto-deploys on every push
+
+**Note**: Railway has some SSL issues with MongoDB Atlas - Use Render instead.
+
+</details>
+
+<details>
+<summary><b>Glitch.com</b></summary>
+
+1. Go to [glitch.com](https://glitch.com)
+2. Click "New Project" → "Import from GitHub"
+3. Select your repository
+4. Add environment variables
+5. Auto-deploys with live URL
+
+</details>
+
+<details>
+<summary><b>Heroku (Paid)</b></summary>
+
+1. Create Heroku account
+2. Connect GitHub to Heroku
+3. Add buildpacks: Node.js
+4. Configure environment variables
+5. Enable automatic deploys
+
+**Cost**: Free tier discontinued - starts at $7/month
+
+</details>
+
+### Troubleshooting
+
+| Error | Solution |
+|-------|----------|
+| "Site can't be reached" | Check Render logs for errors |
+| "Database connection failed" | Verify MongoDB Atlas IP whitelist is `0.0.0.0/0` |
+| "Image upload fails" | Check Cloudinary credentials in environment variables |
+| "Payment not working" | Use Razorpay test cards (e.g., 4111 1111 1111 1111) |
+| "Maps not showing" | Verify Leaflet CDN is loaded in views |
+
+### For More Details
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for comprehensive setup instructions.
 
 ## 📦 Dependencies
 
@@ -292,6 +426,22 @@ For issues and questions, please open an issue on the GitHub repository.
 
 ---
 
-**Built with ❤️ using Node.js, Express, MongoDB, and Leaflet Maps**
+## 🎯 Current Deployment Status
+
+| Component | Service | Status | Free Tier |
+|-----------|---------|--------|-----------|
+| **Hosting** | Render.com | ✅ Active | Yes |
+| **Database** | MongoDB Atlas | ✅ Connected | Yes (M0) |
+| **Image Storage** | Cloudinary | ✅ Configured | Yes |
+| **Maps** | Leaflet + OpenStreetMap | ✅ Working | Yes (No API key) |
+| **Payments** | Razorpay | ✅ Test Mode | Yes |
+
+**Deployed Date**: February 6, 2026  
+**Node Version**: v22.14.0  
+**Express Version**: 5.x
+
+---
+
+**Built with ❤️ using Node.js, Express, MongoDB Atlas, Cloudinary, and Leaflet Maps**
 
 **Happy Booking! 🎉**
